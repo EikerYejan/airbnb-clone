@@ -1,0 +1,52 @@
+{
+  "root": "apps/airbnb-clone-api",
+  "sourceRoot": "apps/airbnb-clone-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/airbnb-clone-api",
+        "main": "apps/airbnb-clone-api/src/main.ts",
+        "tsConfig": "apps/airbnb-clone-api/tsconfig.app.json",
+        "assets": ["apps/airbnb-clone-api/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/airbnb-clone-api/src/environments/environment.ts",
+              "with": "apps/airbnb-clone-api/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "airbnb-clone-api:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/airbnb-clone-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/airbnb-clone-api"],
+      "options": {
+        "jestConfig": "apps/airbnb-clone-api/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
