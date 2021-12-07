@@ -46,6 +46,13 @@
         "jestConfig": "apps/airbnb-clone-api/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "type-check": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "cwd": "apps/airbnb-clone-api/",
+        "command": "yarn tsc --project apps/airbnb-clone-api/tsconfig.app.json"
+      }
     }
   },
   "tags": []
