@@ -57,7 +57,8 @@
         "no-useless-constructor": "off",
         "no-empty-function": "off",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["error"]
+        "@typescript-eslint/no-unused-vars": ["error"],
+        "object-curly-newline": "off"
       }
     },
     {
