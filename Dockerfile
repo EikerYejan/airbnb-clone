@@ -12,4 +12,4 @@ ENV PORT=80
 
 EXPOSE 80
 
-CMD ["yarn run:api:ci"]
+CMD ["yarn", "run:api:ci"]
