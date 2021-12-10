@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Prisma } from '@prisma/client'
+import { Listing, Prisma } from '@prisma/client'
 import { removeUndefinedEntries } from '../utils'
 import { GetListingsDto } from './dtos/getListings.dto'
 
@@ -75,7 +75,7 @@ export class ListingsUtilsService {
     return fields.reduce((obj, field) => ({ ...obj, [field]: true }), {})
   }
 
-  generateOrderBy(sortField?: string, sortOrder?: string) {
+  generateOrderBy(sortField?: keyof Listing, sortOrder?: string) {
     if (!sortField || !sortOrder || !this.validateOrderBy(sortField)) return undefined
 
     return { [sortField]: sortOrder }

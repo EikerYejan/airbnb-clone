@@ -44,7 +44,9 @@
       "outputs": ["coverage/apps/airbnb-clone-api"],
       "options": {
         "jestConfig": "apps/airbnb-clone-api/jest.config.js",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "codeCoverage": true,
+        "verbose": true
       }
     },
     "type-check": {

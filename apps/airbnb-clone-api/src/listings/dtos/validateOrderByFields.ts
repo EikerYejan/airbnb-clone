@@ -14,6 +14,6 @@ export class IsValidOrderByField implements ValidatorConstraintInterface {
   }
 
   defaultMessage(validationArguments?: ValidationArguments): string {
-    return `Invalid ${validationArguments?.property} value, recieved ${validationArguments?.value}`
+    return `parameter ${validationArguments?.value} is not a valid ${validationArguments?.property} value`
   }
 }

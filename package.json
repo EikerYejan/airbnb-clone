@@ -13,6 +13,7 @@
     "build:api": "rm -rf dist/apps/airbnb-clone-api && nx build airbnb-clone-api --prod",
     "run:api:ci": "pm2-runtime pm2.config.js",
     "lint:fix:api": "nx lint airbnb-clone-api",
+    "test:api": "nx test airbnb-clone-api",
     "api:generate-client": "npx prisma generate --schema ./apps/airbnb-clone-api/prisma/schema.prisma"
   },
   "private": true,

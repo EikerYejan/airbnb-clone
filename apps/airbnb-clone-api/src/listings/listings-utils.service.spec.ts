@@ -1,18 +1,40 @@
-import { Test, TestingModule } from '@nestjs/testing'
+import { createTestingModule } from '../../__tests__/testingModule'
 import { ListingsUtilsService } from './listings-utils.service'
 
 describe('ListingsUtilsService', () => {
   let service: ListingsUtilsService
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [ListingsUtilsService],
-    }).compile()
+    const module = await createTestingModule().compile()
 
     service = module.get<ListingsUtilsService>(ListingsUtilsService)
   })
 
   it('should be defined', () => {
     expect(service).toBeDefined()
+  })
+
+  describe('generateQuerySelect', () => {
+    it('Should generate and undefined value', () => {
+      expect(service.generateQuerySelect()).toBeUndefined()
+    })
+
+    it('Should generate a proper select object', () => {
+      expect(service.generateQuerySelect(['name', 'id'])).toEqual({ name: true, id: true })
+    })
+  })
+
+  describe('generateOrderBy', () => {
+    it('Should generate and undefined value', () => {
+      expect(service.generateOrderBy()).toBeUndefined()
+    })
+
+    it('Should generate a proper select object', () => {
+      expect(service.generateOrderBy('name', 'desc')).toEqual({ name: 'desc' })
+    })
+  })
+
+  it('should generatePagination of 75', () => {
+    expect(service.generatePagination(25, 4)).toEqual(75)
   })
 })
