@@ -1,4 +1,5 @@
 import { createTestingModule } from '../../__tests__/testingModule'
+import { SortOrder } from './dtos/getListings.dto'
 import { ListingsUtilsService } from './listings-utils.service'
 
 describe('ListingsUtilsService', () => {
@@ -36,5 +37,38 @@ describe('ListingsUtilsService', () => {
 
   it('should generatePagination of 75', () => {
     expect(service.generatePagination(25, 4)).toEqual(75)
+  })
+
+  it('Should generate query filters', () => {
+    const filters = { beds: 2, name: undefined }
+
+    expect(service.generateQueryFilters(filters)).toEqual({ beds: 2 })
+  })
+
+  it('Should generate filters', () => {
+    const expected = {
+      take: 15,
+      skip: 0,
+      where: {
+        name: 'NAME',
+      },
+      select: {
+        name: true,
+      },
+      orderBy: {
+        beds: 'desc',
+      },
+    }
+
+    expect(
+      service.generateFilters({
+        size: 15,
+        page: 1,
+        name: 'NAME',
+        select: ['name'],
+        orderBy: 'beds',
+        sort: SortOrder.DESC,
+      }),
+    ).toEqual(expected)
   })
 })

@@ -12,7 +12,7 @@ import {
 import { IsValidOrderByField } from './validateOrderByFields'
 import { IsValidSelectField } from './validateSelectFields'
 
-enum SortOrder {
+export enum SortOrder {
   ASC = 'asc',
   DESC = 'desc',
 }
@@ -54,12 +54,12 @@ export class GetListingsDto {
   @IsOptional()
   propertyType?: string
 
-  @Transform(({ value }) => value?.split(','))
+  @Transform(({ value = [] }) => value?.split(','))
   @IsArray()
   @ArrayUnique()
   @IsOptional()
   @Validate(IsValidSelectField)
-  select?: string[]
+  select?: Array<keyof Listing>
 
   @IsString()
   @IsOptional()

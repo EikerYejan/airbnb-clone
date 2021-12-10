@@ -22,7 +22,7 @@ export class ListingsController {
       return {
         statusCode: 200,
         meta: {
-          count: data.length,
+          count: data?.length,
           page: query?.page,
         },
         data,

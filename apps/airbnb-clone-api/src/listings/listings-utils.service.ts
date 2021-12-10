@@ -58,13 +58,13 @@ export class ListingsUtilsService {
   }
 
   validateOrderBy(value?: string) {
-    return this?.allowedSelectFields?.includes(value)
+    return this.allowedSelectFields.includes(value)
   }
 
-  validateSelectFields(fields?: string[]) {
-    const invalidFields = fields?.filter((field) => !this.allowedSelectFields.includes(field))
+  validateSelectFields(fields: string[] = []) {
+    const invalidFields = fields.filter((field) => !this.allowedSelectFields.includes(field))
 
-    if (invalidFields && invalidFields.length > 0) return false
+    if (invalidFields && invalidFields?.length > 0) return false
 
     return true
   }
