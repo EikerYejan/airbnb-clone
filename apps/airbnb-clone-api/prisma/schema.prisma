@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Listing {
-  id                   String    @id @default(dbgenerated()) @map("_id") @db.ObjectId
+  id                   String    @id @map("_id")
   listingUrl           String    @unique @map("listing_url")
   name                 String    @unique
   summary              String
