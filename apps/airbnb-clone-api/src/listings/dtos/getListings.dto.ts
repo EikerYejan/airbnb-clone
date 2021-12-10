@@ -1,5 +1,21 @@
-import { Prisma } from '@prisma/client'
-import { IsNumber, IsOptional, IsString } from 'class-validator'
+import { Listing } from '@prisma/client'
+import { Transform } from 'class-transformer'
+import {
+  ArrayUnique,
+  IsArray,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Validate,
+  IsEnum,
+} from 'class-validator'
+import { IsValidOrderByField } from './validateOrderByFields'
+import { IsValidSelectField } from './validateSelectFields'
+
+enum SortOrder {
+  ASC = 'asc',
+  DESC = 'desc',
+}
 
 export class GetListingsDto {
   @IsString()
@@ -38,15 +54,20 @@ export class GetListingsDto {
   @IsOptional()
   propertyType?: string
 
-  @IsString()
+  @Transform(({ value }) => value?.split(','))
+  @IsArray()
+  @ArrayUnique()
   @IsOptional()
-  select?: string
+  @Validate(IsValidSelectField)
+  select?: string[]
 
   @IsString()
   @IsOptional()
-  orderBy?: string
+  @Validate(IsValidOrderByField)
+  orderBy?: keyof Listing
 
   @IsString()
   @IsOptional()
-  sort?: Prisma.SortOrder
+  @IsEnum(SortOrder)
+  sort?: SortOrder
 }

@@ -30,6 +30,7 @@ export class ListingsUtilsService {
     'access',
     'interaction',
     'houseRules',
+    'lastScraped',
   ]
 
   generatePagination(size: number, page: number) {
@@ -56,22 +57,26 @@ export class ListingsUtilsService {
     })
   }
 
-  generateQuerySelect(fields?: string) {
-    if (!fields || fields?.length <= 0) return undefined
+  validateOrderBy(value?: string) {
+    return this?.allowedSelectFields?.includes(value)
+  }
 
-    const parsed = fields.split(',')
-    // TODO: migrate this validation to the DTO
-    const invalidFields = parsed?.filter((field) => !this.allowedSelectFields.includes(field))
+  validateSelectFields(fields?: string[]) {
+    const invalidFields = fields?.filter((field) => !this.allowedSelectFields.includes(field))
 
-    if (invalidFields && invalidFields.length > 0) {
-      throw new Error(`Invalid select fields: ${invalidFields.join(', ')}`)
-    }
+    if (invalidFields && invalidFields.length > 0) return false
 
-    return parsed.reduce((obj, field) => ({ ...obj, [field]: true }), {})
+    return true
+  }
+
+  generateQuerySelect(fields?: string[]) {
+    if (!fields || fields?.length <= 0 || !this.validateSelectFields(fields)) return undefined
+
+    return fields.reduce((obj, field) => ({ ...obj, [field]: true }), {})
   }
 
   generateOrderBy(sortField?: string, sortOrder?: string) {
-    if (!sortField || !sortOrder) return undefined
+    if (!sortField || !sortOrder || !this.validateOrderBy(sortField)) return undefined
 
     return { [sortField]: sortOrder }
   }
