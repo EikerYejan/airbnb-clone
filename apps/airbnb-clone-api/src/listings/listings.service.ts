@@ -6,7 +6,7 @@ import { PrismaService } from '../prisma/prisma.service'
 export class ListingsService {
   constructor(private readonly db: PrismaService) {}
 
-  list(args: Prisma.listingsFindManyArgs) {
-    return this.db.listings.findMany(args)
+  list(args: Prisma.ListingFindManyArgs) {
+    return this.db.listing.findMany(args)
   }
 }

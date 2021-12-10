@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client'
 import { IsNumber, IsOptional, IsString } from 'class-validator'
 
 export class GetListingsDto {
@@ -40,4 +41,12 @@ export class GetListingsDto {
   @IsString()
   @IsOptional()
   select?: string
+
+  @IsString()
+  @IsOptional()
+  orderBy?: string
+
+  @IsString()
+  @IsOptional()
+  sort?: Prisma.SortOrder
 }
