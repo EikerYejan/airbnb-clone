@@ -17,7 +17,7 @@ export enum SortOrder {
   DESC = 'desc',
 }
 
-export class GetListingsDto {
+export class GetListingsDto implements Partial<Omit<Listing, 'id'>> {
   @IsString()
   @IsOptional()
   name?: string

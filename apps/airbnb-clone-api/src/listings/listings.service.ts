@@ -9,4 +9,16 @@ export class ListingsService {
   list(args: Prisma.ListingFindManyArgs) {
     return this.db.listing.findMany(args)
   }
+
+  get(args: Prisma.ListingFindUniqueArgs) {
+    return this.db.listing.findUnique(args)
+  }
+
+  update(args: Prisma.ListingUpdateArgs) {
+    return this.db.listing.update(args)
+  }
+
+  delete(args: Prisma.ListingDeleteArgs) {
+    return this.db.listing.delete(args)
+  }
 }
