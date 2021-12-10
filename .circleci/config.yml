@@ -15,7 +15,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
-          command: yarn --frozen-lockfile && yarn run test:api
+          command: yarn run test:api
           name: Run YARN tests
 
 workflows:
@@ -28,4 +28,4 @@ workflows:
             - test
           filters:
             branches:
-              only: master
+              only: main
