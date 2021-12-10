@@ -7,14 +7,6 @@ orbs:
   heroku: circleci/heroku@1.2
 
 jobs:
-  install-node:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-      - checkout
-      - node/install:
-          install-yarn: true
-      - run: node --version
   test:
     executor:
       name: node/default
@@ -24,7 +16,7 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
-          command: yarn run test:api
+          command: yarn --frozen-lockfile && yarn run test:api
           name: Run YARN tests
 
 workflows:
