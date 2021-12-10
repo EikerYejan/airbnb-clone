@@ -8,6 +8,8 @@ import {
   Delete,
   Patch,
   Body,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common'
 import { GetListingsDto } from './dtos/getListings.dto'
 import { UpdateListingDto } from './dtos/updateListing.dto'
@@ -24,6 +26,9 @@ export class ListingsController {
   private logger = new Logger('ListingsController')
 
   @Get()
+  @UsePipes(
+    new ValidationPipe({ transform: true, transformOptions: { enableImplicitConversion: true } }),
+  )
   async getListings(@Query() query: GetListingsDto) {
     try {
       const data = await this.listingsService.list(
@@ -64,6 +69,7 @@ export class ListingsController {
   }
 
   @Patch('/:id')
+  @UsePipes(new ValidationPipe({ transform: true }))
   async updateListing(@Body() listing: UpdateListingDto, @Param('id') id: string) {
     try {
       const response = await this.listingsService.update({ data: listing, where: { id } })
