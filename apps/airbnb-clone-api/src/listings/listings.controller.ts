@@ -69,7 +69,13 @@ export class ListingsController {
   }
 
   @Patch('/:id')
-  @UsePipes(new ValidationPipe({ transform: true }))
+  @UsePipes(
+    new ValidationPipe({
+      transform: true,
+      forbidNonWhitelisted: true,
+      whitelist: true,
+    }),
+  )
   async updateListing(@Body() listing: UpdateListingDto, @Param('id') id: string) {
     try {
       const response = await this.listingsService.update({ data: listing, where: { id } })
