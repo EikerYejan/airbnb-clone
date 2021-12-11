@@ -3,9 +3,11 @@ import { Listing, Prisma } from '@prisma/client'
 import { removeUndefinedEntries } from '../utils'
 import { GetListingsDto } from './dtos/getListings.dto'
 
+type ListingKey = keyof Listing
+
 @Injectable()
 export class ListingsUtilsService {
-  private allowedSelectFields = [
+  private allowedSelectFields: Array<ListingKey> = [
     'id',
     'listingUrl',
     'name',
@@ -31,6 +33,9 @@ export class ListingsUtilsService {
     'interaction',
     'houseRules',
     'lastScraped',
+    'createdAt',
+    'updatedAt',
+    'id',
   ]
 
   generatePagination(size: number, page: number) {
@@ -57,11 +62,11 @@ export class ListingsUtilsService {
     })
   }
 
-  validateOrderBy(value?: string) {
+  validateOrderBy(value?: ListingKey) {
     return this.allowedSelectFields.includes(value)
   }
 
-  validateSelectFields(fields: string[] = []) {
+  validateSelectFields(fields: ListingKey[] = []) {
     const invalidFields = fields.filter((field) => !this.allowedSelectFields.includes(field))
 
     if (invalidFields && invalidFields?.length > 0) return false
@@ -69,13 +74,13 @@ export class ListingsUtilsService {
     return true
   }
 
-  generateQuerySelect(fields?: string[]) {
+  generateQuerySelect(fields?: ListingKey[]) {
     if (!fields || fields?.length <= 0 || !this.validateSelectFields(fields)) return undefined
 
     return fields.reduce((obj, field) => ({ ...obj, [field]: true }), {})
   }
 
-  generateOrderBy(sortField?: keyof Listing, sortOrder?: string) {
+  generateOrderBy(sortField?: ListingKey, sortOrder?: string) {
     if (!sortField || !sortOrder || !this.validateOrderBy(sortField)) return undefined
 
     return { [sortField]: sortOrder }
