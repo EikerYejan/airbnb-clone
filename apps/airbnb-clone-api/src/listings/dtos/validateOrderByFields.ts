@@ -1,3 +1,4 @@
+import { Listing } from '@prisma/client'
 import {
   ValidationArguments,
   ValidatorConstraint,
@@ -9,7 +10,7 @@ import { ListingsUtilsService } from '../listings-utils.service'
 export class IsValidOrderByField implements ValidatorConstraintInterface {
   private validatorService = new ListingsUtilsService()
 
-  validate(value: string) {
+  validate(value: keyof Listing) {
     return this.validatorService.validateOrderBy(value)
   }
 

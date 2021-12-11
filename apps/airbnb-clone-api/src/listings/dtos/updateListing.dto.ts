@@ -2,30 +2,6 @@ import { Listing } from '@prisma/client'
 import { ArrayUnique, IsArray, IsNumber, IsOptional, IsString } from 'class-validator'
 
 export class UpdateListingDto implements Partial<Omit<Listing, 'id'>> {
-  @IsNumber()
-  @IsOptional()
-  minimumNights?: number
-
-  @IsNumber()
-  @IsOptional()
-  maximumNights?: number
-
-  @IsNumber()
-  @IsOptional()
-  bedrooms?: number
-
-  @IsNumber()
-  @IsOptional()
-  beds?: number
-
-  @IsNumber()
-  @IsOptional()
-  bathrooms?: number
-
-  @IsString()
-  @IsOptional()
-  propertyType?: string
-
   @IsString()
   @IsOptional()
   listingUrl?: string
@@ -40,7 +16,15 @@ export class UpdateListingDto implements Partial<Omit<Listing, 'id'>> {
 
   @IsString()
   @IsOptional()
+  space?: string
+
+  @IsString()
+  @IsOptional()
   description?: string
+
+  @IsString()
+  @IsOptional()
+  propertyType?: string
 
   @IsString()
   @IsOptional()
@@ -58,13 +42,33 @@ export class UpdateListingDto implements Partial<Omit<Listing, 'id'>> {
   @IsOptional()
   bedType?: string
 
+  @IsNumber()
+  @IsOptional()
+  minimumNights?: number
+
+  @IsNumber()
+  @IsOptional()
+  maximumNights?: number
+
   @IsString()
   @IsOptional()
   cancelationPolicy?: string
 
   @IsNumber()
   @IsOptional()
-  acommodates?: number
+  accommodates?: number
+
+  @IsNumber()
+  @IsOptional()
+  bedrooms?: number
+
+  @IsNumber()
+  @IsOptional()
+  beds?: number
+
+  @IsNumber()
+  @IsOptional()
+  bathrooms?: number
 
   @IsArray()
   @ArrayUnique()
@@ -86,4 +90,8 @@ export class UpdateListingDto implements Partial<Omit<Listing, 'id'>> {
   @IsString()
   @IsOptional()
   houseRules: string
+
+  @IsNumber()
+  @IsOptional()
+  reviewsCount?: number
 }
