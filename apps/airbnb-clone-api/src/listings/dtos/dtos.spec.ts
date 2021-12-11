@@ -12,6 +12,8 @@ describe('Validation DTOs', () => {
   it('Should deny invalid select values (listing_id,listing_name)', () => {
     const message = selectFieldsValidator.defaultMessage()
 
+    // eslint-disable-next-line
+    // @ts-ignore
     expect(selectFieldsValidator.validate(['listing_id', 'listing_name'])).toBeFalsy()
     expect(message).toEqual('Invalid select fields')
   })
@@ -29,6 +31,8 @@ describe('Validation DTOs', () => {
       targetName: 'orderBy',
     })
 
+    // eslint-disable-next-line
+    // @ts-ignore
     expect(orderByFieldsValidator.validate('listing_date')).toBeFalsy()
     expect(message).toEqual('parameter listing_date is not a valid orderBy value')
   })

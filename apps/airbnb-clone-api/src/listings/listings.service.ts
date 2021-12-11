@@ -18,7 +18,7 @@ export class ListingsService {
     return this.db.listing.update(args)
   }
 
-  async create(args: Prisma.ListingCreateArgs) {
+  create(args: Prisma.ListingCreateArgs) {
     return this.db.listing.create(args)
   }
 
