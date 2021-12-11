@@ -18,6 +18,10 @@ export class ListingsService {
     return this.db.listing.update(args)
   }
 
+  async create(args: Prisma.ListingCreateArgs) {
+    return this.db.listing.create(args)
+  }
+
   delete(args: Prisma.ListingDeleteArgs) {
     return this.db.listing.delete(args)
   }

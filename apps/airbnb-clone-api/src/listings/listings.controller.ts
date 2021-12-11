@@ -10,7 +10,9 @@ import {
   Body,
   UsePipes,
   ValidationPipe,
+  Post,
 } from '@nestjs/common'
+import { CreateListingDto } from './dtos/createListing.dto'
 import { GetListingsDto } from './dtos/getListings.dto'
 import { UpdateListingDto } from './dtos/updateListing.dto'
 import { ListingsUtilsService } from './listings-utils.service'
@@ -78,7 +80,10 @@ export class ListingsController {
   )
   async updateListing(@Body() listing: UpdateListingDto, @Param('id') id: string) {
     try {
-      const response = await this.listingsService.update({ data: listing, where: { id } })
+      const response = await this.listingsService.update({
+        data: listing,
+        where: { id },
+      })
 
       return {
         statusCode: 200,
@@ -104,6 +109,29 @@ export class ListingsController {
       this.logger.error(error)
 
       throw new HttpException(error, error.status || 500)
+    }
+  }
+
+  @Post()
+  @UsePipes(
+    new ValidationPipe({
+      transform: true,
+      forbidNonWhitelisted: true,
+      whitelist: true,
+    }),
+  )
+  async createListing(@Body() listing: CreateListingDto) {
+    try {
+      const response = await this.listingsService.create({ data: listing })
+
+      return {
+        statusCode: 200,
+        data: response,
+      }
+    } catch (error) {
+      this.logger.error(error)
+
+      throw new HttpException(error?.message, error.status || 500)
     }
   }
 }
