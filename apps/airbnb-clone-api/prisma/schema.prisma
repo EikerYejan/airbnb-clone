@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Listing {
-  id                   String    @id @map("_id")
+  id                   Int       @id @default(autoincrement()) @map("_id")
   listingUrl           String    @unique @map("listing_url")
   name                 String    @unique
   summary              String
@@ -26,12 +26,14 @@ model Listing {
   accommodates         Int
   bedrooms             Float
   beds                 Int
-  reviewsCount         Int       @map("number_of_reviews")
   bathrooms            Float
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
   amenities            String[]  @db.Array(String)
   neighborhoodOverview String?   @map("neighborhood_overview ")
   access               String?
   interaction          String?
   houseRules           String?   @map("house_rules")
   lastScraped          DateTime? @map("last_scraped")
+  reviewsCount         Int       @map("number_of_reviews")
 }
