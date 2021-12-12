@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
 
   private readonly apiKey = this.config.get<string>('apiKey')
 
-  private readonly whiteListedRoutes = ['/api']
+  private readonly whiteListedRoutes = ['/api', '/api/health']
 
   onModuleInit() {
     this.logger.log('AuthGuard mounted')

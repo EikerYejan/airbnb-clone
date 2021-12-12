@@ -1,20 +1,27 @@
-import { TestingModule } from '@nestjs/testing'
 import { createTestingModule } from '../../__tests__/testingModule'
 import { AppController } from './app.controller'
 
 describe('AppController', () => {
-  let app: TestingModule
+  let controller: AppController
 
-  beforeAll(async () => {
-    app = await createTestingModule().compile()
+  beforeEach(async () => {
+    const app = await createTestingModule().compile()
+
+    controller = app.get<AppController>(AppController)
   })
 
-  describe('getData', () => {
-    it('should return "Welcome to airbnb-clone-api!"', () => {
-      const appController = app.get<AppController>(AppController)
-      expect(appController.getData()).toEqual({
-        message: 'Welcome to airbnb-clone-api!',
-      })
+  it('should return "Welcome to airbnb-clone-api!"', () => {
+    expect(controller.getData()).toEqual({
+      message: 'Welcome to airbnb-clone-api!',
     })
+  })
+
+  it('Should return health status', async () => {
+    const data = await controller.checkHealth()
+
+    expect(data.status).toEqual('ok')
+    expect(data.env).toHaveProperty('node-version')
+    expect(data.env).toHaveProperty('appName')
+    expect(data.env).toHaveProperty('appVersion')
   })
 })
