@@ -12,6 +12,7 @@ import {
   ValidationPipe,
   Post,
 } from '@nestjs/common'
+import { ApiSecurity } from '@nestjs/swagger'
 import { CreateListingDto } from './dtos/createListing.dto'
 import { GetListingsDto } from './dtos/getListings.dto'
 import { UpdateListingDto } from './dtos/updateListing.dto'
@@ -19,6 +20,7 @@ import { ListingsUtilsService } from './listings-utils.service'
 import { ListingsService } from './listings.service'
 
 @Controller('listings')
+@ApiSecurity('x-api-key', ['x-api-key'])
 export class ListingsController {
   constructor(
     private readonly listingsService: ListingsService,

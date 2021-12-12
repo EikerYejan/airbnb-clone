@@ -10,7 +10,8 @@
         "outputPath": "dist/apps/airbnb-clone-api",
         "main": "apps/airbnb-clone-api/src/main.ts",
         "tsConfig": "apps/airbnb-clone-api/tsconfig.app.json",
-        "assets": ["apps/airbnb-clone-api/src/assets"]
+        "assets": ["apps/airbnb-clone-api/src/assets"],
+        "webpackConfig": "apps/airbnb-clone-api/webpack.config.js"
       },
       "configurations": {
         "production": {
