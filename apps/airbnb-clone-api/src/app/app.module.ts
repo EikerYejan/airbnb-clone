@@ -5,6 +5,7 @@ import { TerminusModule } from '@nestjs/terminus'
 import { APP_GUARD } from '@nestjs/core'
 import { HttpModule } from '@nestjs/axios'
 import { GraphQLModule } from '@nestjs/graphql'
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
 import { join } from 'path'
 import { ListingsModule } from '../listings/listings.module'
 import { AppController } from './app.controller'
@@ -33,7 +34,7 @@ const envFilePath = join(appDir, '.env')
     }),
     DateScalar,
     GraphQLModule.forRoot({
-      playground: true,
+      playground: false,
       useGlobalPrefix: true,
       typePaths: [join(appDir, './src/graphql/listings.graphql')],
       definitions: {
@@ -44,6 +45,7 @@ const envFilePath = join(appDir, '.env')
           Date: 'Date',
         },
       },
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
   ],
   controllers: [AppController],
