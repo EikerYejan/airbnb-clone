@@ -9,6 +9,7 @@ import {
   Validate,
   IsEnum,
 } from 'class-validator'
+import { ListingOrderBy, Order } from '../../graphql/graphql.typings'
 import { IsValidOrderByField } from './validateOrderByFields'
 import { IsValidSelectField } from './validateSelectFields'
 
@@ -64,10 +65,18 @@ export class GetListingsDto implements Partial<Omit<Listing, 'id'>> {
   @IsString()
   @IsOptional()
   @Validate(IsValidOrderByField)
-  orderBy?: keyof Listing
+  orderBy?: keyof Listing | ListingOrderBy
 
   @IsString()
   @IsOptional()
   @IsEnum(SortOrder)
-  sort?: SortOrder
+  sort?: SortOrder | Order
+
+  @IsString()
+  @IsOptional()
+  createdAt?: Date
+
+  @IsString()
+  @IsOptional()
+  updatedAt?: Date
 }

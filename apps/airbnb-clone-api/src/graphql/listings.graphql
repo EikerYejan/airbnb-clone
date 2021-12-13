@@ -1,0 +1,70 @@
+scalar Date
+
+enum Order {
+  asc
+  desc
+}
+
+enum ListingOrderBy {
+  createdAt
+  updatedAt
+  minimunNights
+  maximunNights
+  accommodates
+  bedrooms
+  beds
+  bathrooms
+}
+
+type Listing {
+  id: ID!
+  listingUrl: String!
+  name: String!
+  summary: String!
+  space: String!
+  description: String!
+  propertyType: String!
+  notes: String!
+  transit: String!
+  roomType: String!
+  bedType: String!
+  minimunNights: Int!
+  maximunNights: Int!
+  cancellationPolicy: String!
+  accommodates: Int!
+  bedrooms: Float!
+  beds: Int!
+  bathrooms: Float!
+  createdAt: Date!
+  updatedAt: Date!
+  amenities: [String]
+  neighborhoodOverview: String
+  access: String
+  interaction: String
+  houseRules: String
+  lastScraped: String
+  reviewsCount: Int!
+}
+
+input GetListings {
+  listingUrl: String
+  name: String
+  minimunNights: Int
+  maximunNights: Int
+  accommodates: Int
+  bedrooms: Float
+  beds: Int
+  bathrooms: Float
+  createdAt: Date
+  updatedAt: Date
+  propertyType: String
+  page: Int
+  size: Int
+  order: Order
+  orderBy: ListingOrderBy
+}
+
+type Query {
+  listings(where: GetListings): [Listing!]!
+  listing(id: ID!): Listing!
+}

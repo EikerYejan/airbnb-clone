@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Listing, Prisma } from '@prisma/client'
+import { ListingOrderBy } from '../graphql/graphql.typings'
 import { removeUndefinedEntries } from '../utils'
 import { GetListingsDto } from './dtos/getListings.dto'
 
@@ -7,7 +8,7 @@ type ListingKey = keyof Listing
 
 @Injectable()
 export class ListingsUtilsService {
-  private allowedSelectFields: Array<ListingKey> = [
+  private allowedSelectFields: Array<ListingKey | ListingOrderBy> = [
     'id',
     'listingUrl',
     'name',
@@ -62,7 +63,7 @@ export class ListingsUtilsService {
     })
   }
 
-  validateOrderBy(value?: ListingKey) {
+  validateOrderBy(value?: ListingKey | ListingOrderBy) {
     return this.allowedSelectFields.includes(value)
   }
 
@@ -80,7 +81,7 @@ export class ListingsUtilsService {
     return fields.reduce((obj, field) => ({ ...obj, [field]: true }), {})
   }
 
-  generateOrderBy(sortField?: ListingKey, sortOrder?: string) {
+  generateOrderBy(sortField?: ListingKey | ListingOrderBy, sortOrder?: string) {
     if (!sortField || !sortOrder || !this.validateOrderBy(sortField)) return undefined
 
     return { [sortField]: sortOrder }
