@@ -59,7 +59,7 @@ export class ListingsUtilsService {
       minimumNights,
       maximumNights,
       propertyType,
-      name,
+      name: { contains: name },
     })
   }
 
