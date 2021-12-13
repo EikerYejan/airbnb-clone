@@ -36,14 +36,14 @@ export class ListingsController {
   async getListings(@Query() query: GetListingsDto) {
     try {
       const data = await this.listingsService.list(
-        this.util.generateFilters({ ...query, size: query?.size ?? 25, page: query?.page ?? 1 }),
+        this.util.generateFilters({ ...query, size: query.size ?? 25, page: query.page ?? 1 }),
       )
 
       return {
         statusCode: 200,
         meta: {
           count: data?.length,
-          page: query?.page,
+          page: query?.page || 1,
         },
         data,
       }

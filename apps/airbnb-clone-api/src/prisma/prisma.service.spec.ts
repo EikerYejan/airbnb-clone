@@ -1,9 +1,13 @@
 import { PrismaService } from './prisma.service'
 
 describe('PrismaService', () => {
-  it('Should create service', () => {
-    const prisma = new PrismaService()
+  let prisma: PrismaService
 
+  beforeEach(() => {
+    prisma = new PrismaService()
+  })
+
+  it('Should create service', () => {
     expect(prisma).toBeDefined()
   })
 })

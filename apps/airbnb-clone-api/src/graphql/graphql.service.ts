@@ -15,7 +15,7 @@ export class GraphqlService {
   @UsePipes()
   listingsQuery(@Args('where') args: GetListings) {
     return this.listings.list(
-      this.util.generateFilters({ ...args, size: args?.size ?? 25, page: args?.page ?? 1 }),
+      this.util.generateFilters({ ...args, size: args.size ?? 25, page: args.page ?? 1 }),
     )
   }
 }
