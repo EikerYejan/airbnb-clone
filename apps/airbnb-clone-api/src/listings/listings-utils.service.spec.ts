@@ -67,7 +67,7 @@ describe('ListingsUtilsService', () => {
         name: 'NAME',
         select: ['name'],
         orderBy: 'beds',
-        sort: SortOrder.DESC,
+        order: SortOrder.DESC,
       }),
     ).toEqual(expected)
   })

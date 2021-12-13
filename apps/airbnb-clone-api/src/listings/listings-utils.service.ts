@@ -81,21 +81,21 @@ export class ListingsUtilsService {
     return fields.reduce((obj, field) => ({ ...obj, [field]: true }), {})
   }
 
-  generateOrderBy(sortField?: ListingKey | ListingOrderBy, sortOrder?: string) {
-    if (!sortField || !sortOrder || !this.validateOrderBy(sortField)) return undefined
+  generateOrderBy(sortField?: ListingKey | ListingOrderBy, order?: string) {
+    if (!sortField || !order || !this.validateOrderBy(sortField)) return undefined
 
-    return { [sortField]: sortOrder }
+    return { [sortField]: order }
   }
 
   generateFilters(query: GetListingsDto): Partial<Prisma.ListingFindManyArgs> {
-    const { sort, orderBy } = query
+    const { order, orderBy } = query
 
     return removeUndefinedEntries({
       take: query.size,
       skip: this.generatePagination(query.size, query.page),
       where: this.generateQueryFilters(query),
       select: this.generateQuerySelect(query?.select),
-      orderBy: this.generateOrderBy(orderBy, sort),
+      orderBy: this.generateOrderBy(orderBy, order),
     })
   }
 }

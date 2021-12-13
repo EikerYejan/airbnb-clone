@@ -70,7 +70,7 @@ export class GetListingsDto implements Partial<Omit<Listing, 'id'>> {
   @IsString()
   @IsOptional()
   @IsEnum(SortOrder)
-  sort?: SortOrder | Order
+  order?: SortOrder | Order
 
   @IsString()
   @IsOptional()
