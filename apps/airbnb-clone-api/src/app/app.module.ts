@@ -12,6 +12,7 @@ import { AppService } from './app.service'
 import { AuthGuard } from '../auth/auth.guard'
 import { loadConfig } from '../config'
 import { DateScalar } from '../graphql/date.scalar'
+import { AppThrottlerGuard } from '../throttler/throttler.guard'
 
 const appDir = join(process.cwd(), 'apps', 'airbnb-clone-api')
 const envFilePath = join(appDir, '.env')
@@ -47,8 +48,8 @@ const envFilePath = join(appDir, '.env')
   controllers: [AppController],
   providers: [
     AppService,
+    { provide: APP_GUARD, useClass: AppThrottlerGuard },
     { provide: APP_GUARD, useClass: AuthGuard },
-    // TODO: Use this with GraphQL { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })
 export class AppModule {}
