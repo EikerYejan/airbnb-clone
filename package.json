@@ -8,13 +8,14 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "run:api": "nx serve airbnb-clone-api",
+    "run:api": "yarn api:gen-graphql-typings && nx serve airbnb-clone-api",
     "lint:api": "nx lint airbnb-clone-api",
-    "build:api": "rm -rf dist/apps/airbnb-clone-api && nx build airbnb-clone-api --prod",
+    "build:api": "rm -rf dist/apps/airbnb-clone-api && yarn api:gen-graphql-typings && nx build airbnb-clone-api --prod",
     "run:api:ci": "pm2-runtime pm2.config.js",
     "lint:fix:api": "nx lint airbnb-clone-api",
     "test:api": "nx test airbnb-clone-api",
-    "api:generate-client": "npx prisma generate --schema ./apps/airbnb-clone-api/prisma/schema.prisma"
+    "api:generate-client": "npx prisma generate --schema ./apps/airbnb-clone-api/prisma/schema.prisma",
+    "api:gen-graphql-typings": "ts-node ./apps/airbnb-clone-api/src/graphql/generateTypings.ts"
   },
   "private": true,
   "dependencies": {

@@ -39,6 +39,7 @@ const envFilePath = join(appDir, '.env')
       definitions: {
         path: join(appDir, './src/graphql/graphql.typings.ts'),
         outputAs: 'class',
+        emitTypenameField: true,
         customScalarTypeMapping: {
           Date: 'Date',
         },
