@@ -1,8 +1,7 @@
-import { UsePipes } from '@nestjs/common'
-import { Resolver, Query, Args } from '@nestjs/graphql'
+import { Resolver, Query, Args, Mutation } from '@nestjs/graphql'
 import { ListingsUtilsService } from '../listings/listings-utils.service'
 import { ListingsService } from '../listings/listings.service'
-import { GetListings } from './graphql.typings'
+import { GetListings, UpdateListing } from './graphql.typings'
 
 @Resolver('Listing')
 export class GraphqlService {
@@ -12,10 +11,19 @@ export class GraphqlService {
   ) {}
 
   @Query('listings')
-  @UsePipes()
   listingsQuery(@Args('where') args: GetListings) {
     return this.listings.list(
       this.util.generateFilters({ ...args, size: args?.size ?? 25, page: args?.page ?? 1 }),
     )
+  }
+
+  @Query('listing')
+  listSingleQuery(@Args('id') id: string) {
+    return this.listings.get({ where: { id } })
+  }
+
+  @Mutation('updateListing')
+  updateListing(@Args('id') id: string, @Args('data') data?: UpdateListing) {
+    return this.listings.update({ data, where: { id } })
   }
 }

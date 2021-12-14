@@ -42,7 +42,7 @@ type Listing {
   access: String
   interaction: String
   houseRules: String
-  lastScraped: String
+  lastScraped: Date
   reviewsCount: Int!
 }
 
@@ -64,7 +64,38 @@ input GetListings {
   orderBy: ListingOrderBy
 }
 
+input UpdateListing {
+  listingUrl: String
+  name: String
+  summary: String
+  space: String
+  description: String
+  propertyType: String
+  notes: String
+  transit: String
+  roomType: String
+  bedType: String
+  minimunNights: Int
+  maximunNights: Int
+  cancellationPolicy: String
+  accommodates: Int
+  bedrooms: Float
+  beds: Int
+  bathrooms: Float
+  amenities: [String]
+  neighborhoodOverview: String
+  access: String
+  interaction: String
+  houseRules: String
+  lastScraped: Date
+  reviewsCount: Int
+}
+
 type Query {
   listings(where: GetListings): [Listing!]!
   listing(id: ID!): Listing!
+}
+
+type Mutation {
+  updateListing(id: ID!, data: UpdateListing): Listing
 }
