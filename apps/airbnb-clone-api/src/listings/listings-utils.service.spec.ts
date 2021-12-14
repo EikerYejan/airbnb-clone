@@ -42,7 +42,10 @@ describe('ListingsUtilsService', () => {
   it('Should generate query filters', () => {
     const filters = { beds: 2, name: undefined }
 
-    expect(service.generateQueryFilters(filters)).toEqual({ beds: 2 })
+    expect(service.generateQueryFilters(filters)).toEqual({
+      beds: 2,
+      name: { contains: undefined },
+    })
   })
 
   it('Should generate filters', () => {
@@ -50,7 +53,9 @@ describe('ListingsUtilsService', () => {
       take: 15,
       skip: 0,
       where: {
-        name: 'NAME',
+        name: {
+          contains: 'NAME',
+        },
       },
       select: {
         name: true,
