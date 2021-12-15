@@ -98,4 +98,17 @@ export class ListingsUtilsService {
       orderBy: this.generateOrderBy(orderBy, order),
     })
   }
+
+  generateQueryPageInfo(pageItemsCount: number, allItemsCount: number, size: number, page: number) {
+    const totalPages = Math.ceil(allItemsCount / size)
+
+    return {
+      page,
+      totalPages,
+      count: pageItemsCount,
+      totalItems: allItemsCount,
+      hasNextPage: page < totalPages,
+      hasPreviousPage: page > 1,
+    }
+  }
 }

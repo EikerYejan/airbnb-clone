@@ -10,14 +10,15 @@ export class GraphqlService {
     private readonly util: ListingsUtilsService,
   ) {}
 
-  // TODO: Return pagination meta
   @Query('listings')
   async listingsQuery(@Args('where') args: GetListings) {
-    const { data } = await this.listings.list(
-      this.util.generateFilters({ ...args, size: args?.size ?? 25, page: args?.page ?? 1 }),
+    const page = args?.page ?? 1
+    const { data: edges, pageInfo } = await this.listings.list(
+      this.util.generateFilters({ ...args, size: args?.size ?? 25, page }),
+      page,
     )
 
-    return data
+    return { pageInfo, edges }
   }
 
   @Query('listing')

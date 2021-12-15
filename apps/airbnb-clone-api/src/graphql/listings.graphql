@@ -120,8 +120,22 @@ input CreateListing {
   reviewsCount: Int
 }
 
+type QueryPageInfo {
+  page: Int!
+  count: Int!
+  totalItems: Int!
+  totalPages: Int!
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type QueryResponse {
+  pageInfo: QueryPageInfo!
+  edges: [Listing!]!
+}
+
 type Query {
-  listings(where: GetListings): [Listing!]!
+  listings(where: GetListings): QueryResponse!
   listing(id: ID!): Listing!
 }
 
