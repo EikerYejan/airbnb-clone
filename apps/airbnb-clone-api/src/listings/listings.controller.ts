@@ -35,15 +35,18 @@ export class ListingsController {
   )
   async getListings(@Query() query: GetListingsDto) {
     try {
-      const data = await this.listingsService.list(
+      const { data, count } = await this.listingsService.list(
         this.util.generateFilters({ ...query, size: query?.size ?? 25, page: query?.page ?? 1 }),
       )
 
       return {
         statusCode: 200,
+        // TODO: Move to an util
         meta: {
           count: data?.length,
           page: query?.page || 1,
+          totalItems: count,
+          totalPages: Math.ceil(count / (query?.size || 25)),
         },
         data,
       }
