@@ -1,3 +1,5 @@
+# TODO: Reuse fields from the base class
+
 scalar Date
 
 enum Order {
@@ -8,8 +10,8 @@ enum Order {
 enum ListingOrderBy {
   createdAt
   updatedAt
-  minimunNights
-  maximunNights
+  minimumNights
+  maximumNights
   accommodates
   bedrooms
   beds
@@ -28,8 +30,8 @@ type Listing {
   transit: String!
   roomType: String!
   bedType: String!
-  minimunNights: Int!
-  maximunNights: Int!
+  minimumNights: Int!
+  maximumNights: Int!
   cancellationPolicy: String!
   accommodates: Int!
   bedrooms: Float!
@@ -43,14 +45,14 @@ type Listing {
   interaction: String
   houseRules: String
   lastScraped: Date
-  reviewsCount: Int!
+  reviewsCount: Int
 }
 
 input GetListings {
   listingUrl: String
   name: String
-  minimunNights: Int
-  maximunNights: Int
+  minimumNights: Int
+  maximumNights: Int
   accommodates: Int
   bedrooms: Float
   beds: Int
@@ -75,13 +77,40 @@ input UpdateListing {
   transit: String
   roomType: String
   bedType: String
-  minimunNights: Int
-  maximunNights: Int
+  minimumNights: Int
+  maximumNights: Int
   cancellationPolicy: String
   accommodates: Int
   bedrooms: Float
   beds: Int
   bathrooms: Float
+  amenities: [String]
+  neighborhoodOverview: String
+  access: String
+  interaction: String
+  houseRules: String
+  lastScraped: Date
+  reviewsCount: Int
+}
+
+input CreateListing {
+  listingUrl: String!
+  name: String!
+  summary: String!
+  space: String!
+  description: String!
+  propertyType: String!
+  notes: String!
+  transit: String!
+  roomType: String!
+  bedType: String!
+  minimumNights: Int!
+  maximumNights: Int!
+  cancellationPolicy: String!
+  accommodates: Int!
+  bedrooms: Float!
+  beds: Int!
+  bathrooms: Float!
   amenities: [String]
   neighborhoodOverview: String
   access: String
@@ -97,5 +126,7 @@ type Query {
 }
 
 type Mutation {
+  createListing(data: CreateListing): Listing!
   updateListing(id: ID!, data: UpdateListing): Listing
+  deleteListing(id: ID!): Listing
 }
