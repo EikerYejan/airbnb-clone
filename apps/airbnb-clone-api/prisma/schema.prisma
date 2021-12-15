@@ -35,5 +35,5 @@ model Listing {
   interaction          String?
   houseRules           String?   @map("house_rules")
   lastScraped          DateTime? @map("last_scraped")
-  reviewsCount         Int       @map("number_of_reviews")
+  reviewsCount         Int?      @map("number_of_reviews")
 }
