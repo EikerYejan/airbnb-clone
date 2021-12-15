@@ -5,10 +5,7 @@ import { TerminusModule } from '@nestjs/terminus'
 import { APP_GUARD } from '@nestjs/core'
 import { HttpModule } from '@nestjs/axios'
 import { GraphQLModule } from '@nestjs/graphql'
-import {
-  ApolloServerPluginLandingPageLocalDefault,
-  ApolloServerPluginLandingPageProductionDefault,
-} from 'apollo-server-core'
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
 import { join } from 'path'
 import { ListingsModule } from '../listings/listings.module'
 import { AppController } from './app.controller'
@@ -48,11 +45,7 @@ const envFilePath = join(appDir, '.env')
           Date: 'Date',
         },
       },
-      plugins: [
-        process.env.NODE_ENV === 'production'
-          ? ApolloServerPluginLandingPageProductionDefault()
-          : ApolloServerPluginLandingPageLocalDefault(),
-      ],
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
   ],
   controllers: [AppController],
