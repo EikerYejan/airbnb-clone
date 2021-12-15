@@ -4,7 +4,7 @@ import { GraphqlService } from './graphql.service'
 jest.mock('../listings/listings.service', () => ({
   ListingsService: function service() {
     return {
-      list: jest.fn(() => Promise.resolve([])),
+      list: jest.fn(() => Promise.resolve({ data: [] })),
     }
   },
 }))

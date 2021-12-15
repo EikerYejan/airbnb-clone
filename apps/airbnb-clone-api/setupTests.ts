@@ -9,7 +9,9 @@ jest.mock('@prisma/client', () => ({
         delete: jest.fn(() => ({})),
         create: jest.fn(() => ({})),
         update: jest.fn(() => ({})),
+        count: jest.fn(() => 0),
       },
+      $transaction: jest.fn(() => [[], 0]),
     }
   },
 }))
