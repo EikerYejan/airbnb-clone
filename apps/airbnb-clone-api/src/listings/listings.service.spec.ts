@@ -18,7 +18,7 @@ describe('ListingsService', () => {
 
   testMethods.forEach((method) => {
     it(`${method} should return data`, async () => {
-      const data = await service[method]({ where: { id: 'id' }, data: {} } as any)
+      const data = await service[method]({ where: { id: 'id' }, data: {} } as any, 1)
 
       expect(data).toBeDefined()
     })
