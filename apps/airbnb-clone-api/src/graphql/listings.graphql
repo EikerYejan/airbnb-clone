@@ -39,6 +39,10 @@ type Listing {
   bathrooms: Float!
   createdAt: Date!
   updatedAt: Date!
+  price: Int!
+  weeklyPrice: Int
+  monthlyPrice: Int
+  cleaningFee: Int
   amenities: [String]
   neighborhoodOverview: String
   access: String
@@ -60,6 +64,10 @@ input GetListings {
   createdAt: Date
   updatedAt: Date
   propertyType: String
+  price: Int
+  weeklyPrice: Int
+  monthlyPrice: Int
+  cleaningFee: Int
   page: Int
   size: Int
   order: Order
@@ -91,6 +99,10 @@ input UpdateListing {
   houseRules: String
   lastScraped: Date
   reviewsCount: Int
+  price: Int
+  weeklyPrice: Int
+  monthlyPrice: Int
+  cleaningFee: Int
 }
 
 input CreateListing {
@@ -111,6 +123,10 @@ input CreateListing {
   bedrooms: Float!
   beds: Int!
   bathrooms: Float!
+  price: Int!
+  weeklyPrice: Int
+  monthlyPrice: Int
+  cleaningFee: Int
   amenities: [String]
   neighborhoodOverview: String
   access: String

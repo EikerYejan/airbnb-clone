@@ -94,4 +94,20 @@ export class UpdateListingDto implements Partial<Omit<Listing, 'id'>> {
   @IsNumber()
   @IsOptional()
   reviewsCount?: number
+
+  @IsNumber()
+  @IsOptional()
+  price?: number
+
+  @IsNumber()
+  @IsOptional()
+  weeklyPrice?: number
+
+  @IsNumber()
+  @IsOptional()
+  monthlyPrice?: number
+
+  @IsNumber()
+  @IsOptional()
+  cleaningFee?: number
 }

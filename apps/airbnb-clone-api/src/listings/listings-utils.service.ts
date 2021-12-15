@@ -37,6 +37,10 @@ export class ListingsUtilsService {
     'createdAt',
     'updatedAt',
     'id',
+    'price',
+    'weeklyPrice',
+    'monthlyPrice',
+    'cleaningFee',
   ]
 
   generatePagination(size: number, page: number) {
@@ -51,6 +55,10 @@ export class ListingsUtilsService {
     maximumNights,
     propertyType,
     name,
+    price,
+    weeklyPrice,
+    monthlyPrice,
+    cleaningFee,
   }: GetListingsDto): Prisma.ListingWhereInput {
     return removeUndefinedEntries({
       bedrooms,
@@ -59,6 +67,10 @@ export class ListingsUtilsService {
       minimumNights,
       maximumNights,
       propertyType,
+      price,
+      weeklyPrice,
+      monthlyPrice,
+      cleaningFee,
       name: { contains: name },
     })
   }

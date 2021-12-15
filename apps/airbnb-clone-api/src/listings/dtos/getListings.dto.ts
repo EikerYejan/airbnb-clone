@@ -55,6 +55,22 @@ export class GetListingsDto implements Partial<Omit<Listing, 'id'>> {
   @IsOptional()
   propertyType?: string
 
+  @IsNumber()
+  @IsOptional()
+  price?: number
+
+  @IsNumber()
+  @IsOptional()
+  weeklyPrice?: number
+
+  @IsNumber()
+  @IsOptional()
+  monthlyPrice?: number
+
+  @IsNumber()
+  @IsOptional()
+  cleaningFee?: number
+
   @Transform(({ value = [] }) => value?.split(','))
   @IsArray()
   @ArrayUnique()

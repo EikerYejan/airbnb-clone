@@ -36,4 +36,8 @@ model Listing {
   houseRules           String?   @map("house_rules")
   lastScraped          DateTime? @map("last_scraped")
   reviewsCount         Int?      @map("number_of_reviews")
+  price                Int
+  weeklyPrice          Int?       @map("weekly_price")
+  monthlyPrice         Int?       @map("monthly_price")
+  cleaningFee          Int?       @map("cleaning_fee")
 }

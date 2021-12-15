@@ -1,5 +1,13 @@
 import { Listing } from '@prisma/client'
-import { ArrayUnique, IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator'
+import {
+  ArrayUnique,
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Min,
+} from 'class-validator'
 
 export class CreateListingDto implements Omit<Listing, 'id' | 'createdAt' | 'updatedAt'> {
   @IsString()
@@ -91,4 +99,23 @@ export class CreateListingDto implements Omit<Listing, 'id' | 'createdAt' | 'upd
 
   @IsNumber()
   reviewsCount: number
+
+  @IsNumber()
+  @Min(1)
+  price: number
+
+  @IsNumber()
+  @Min(1)
+  @IsOptional()
+  weeklyPrice: number
+
+  @IsNumber()
+  @Min(1)
+  @IsOptional()
+  monthlyPrice: number
+
+  @IsNumber()
+  @Min(1)
+  @IsOptional()
+  cleaningFee: number
 }
