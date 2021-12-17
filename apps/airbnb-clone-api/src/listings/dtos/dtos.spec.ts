@@ -1,3 +1,4 @@
+import { transformIntFilter } from './getListings.dto'
 import { IsValidOrderByField } from './validateOrderByFields'
 import { IsValidSelectField } from './validateSelectFields'
 
@@ -35,5 +36,19 @@ describe('Validation DTOs', () => {
     // @ts-ignore
     expect(orderByFieldsValidator.validate('listing_date')).toBeFalsy()
     expect(message).toEqual('parameter listing_date is not a valid orderBy value')
+  })
+
+  describe('Transform int filter', () => {
+    it('Should return undefined', () => {
+      expect(transformIntFilter('')).toBeUndefined()
+    })
+
+    it('Should return 500', () => {
+      expect(transformIntFilter('500')).toEqual(500)
+    })
+
+    it('Should return int filter', () => {
+      expect(transformIntFilter('lt_5')).toEqual({ lt: 5 })
+    })
   })
 })

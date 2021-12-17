@@ -1,4 +1,4 @@
-import { Listing } from '@prisma/client'
+import { Listing, Prisma } from '@prisma/client'
 import { Transform } from 'class-transformer'
 import {
   ArrayUnique,
@@ -10,6 +10,7 @@ import {
   IsEnum,
 } from 'class-validator'
 import { ListingOrderBy, Order } from '../../graphql/graphql.typings'
+import { IsValidIntFilter } from './validateIntFilter'
 import { IsValidOrderByField } from './validateOrderByFields'
 import { IsValidSelectField } from './validateSelectFields'
 
@@ -18,7 +19,20 @@ export enum SortOrder {
   DESC = 'desc',
 }
 
-export class GetListingsDto implements Partial<Omit<Listing, 'id'>> {
+// TODO: move to a separate file
+export function transformIntFilter(filter?: string): Prisma.IntFilter | number {
+  if (!filter || filter.length < 0) return undefined
+
+  const [a, b] = filter.split('_')
+  const parsedA = Number(a)
+
+  if (Number.isNaN(parsedA)) return { [a]: Number(b) }
+
+  return parsedA
+}
+
+type DTOFields = Partial<Pick<Listing, 'propertyType' | 'createdAt' | 'updatedAt'>>
+export class GetListingsDto implements DTOFields {
   @IsString()
   @IsOptional()
   name?: string
@@ -31,45 +45,54 @@ export class GetListingsDto implements Partial<Omit<Listing, 'id'>> {
   @IsOptional()
   page?: number
 
-  @IsNumber()
+  @Transform(({ value }) => transformIntFilter(value))
+  @Validate(IsValidIntFilter)
   @IsOptional()
-  minimumNights?: number
+  minimumNights?: Prisma.IntFilter | number
 
-  @IsNumber()
+  @Transform(({ value }) => transformIntFilter(value))
+  @Validate(IsValidIntFilter)
   @IsOptional()
-  maximumNights?: number
+  maximumNights?: Prisma.IntFilter | number
 
-  @IsNumber()
+  @Transform(({ value }) => transformIntFilter(value))
+  @Validate(IsValidIntFilter)
   @IsOptional()
-  bedrooms?: number
+  bedrooms?: Prisma.IntFilter | number
 
-  @IsNumber()
+  @Transform(({ value }) => transformIntFilter(value))
+  @Validate(IsValidIntFilter)
   @IsOptional()
-  beds?: number
+  beds?: Prisma.IntFilter | number
 
-  @IsNumber()
+  @Transform(({ value }) => transformIntFilter(value))
+  @Validate(IsValidIntFilter)
   @IsOptional()
-  bathrooms?: number
+  bathrooms?: Prisma.IntFilter | number
 
   @IsString()
   @IsOptional()
   propertyType?: string
 
-  @IsNumber()
+  @Transform(({ value }) => transformIntFilter(value))
+  @Validate(IsValidIntFilter)
   @IsOptional()
-  price?: number
+  price?: Prisma.IntFilter | number
 
-  @IsNumber()
+  @Transform(({ value }) => transformIntFilter(value))
+  @Validate(IsValidIntFilter)
   @IsOptional()
-  weeklyPrice?: number
+  weeklyPrice?: Prisma.IntFilter | number
 
-  @IsNumber()
+  @Transform(({ value }) => transformIntFilter(value))
+  @Validate(IsValidIntFilter)
   @IsOptional()
-  monthlyPrice?: number
+  monthlyPrice?: Prisma.IntFilter | number
 
-  @IsNumber()
+  @Transform(({ value }) => transformIntFilter(value))
+  @Validate(IsValidIntFilter)
   @IsOptional()
-  cleaningFee?: number
+  cleaningFee?: Prisma.IntFilter | number
 
   @Transform(({ value = [] }) => value?.split(','))
   @IsArray()

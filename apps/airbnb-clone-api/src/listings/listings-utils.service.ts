@@ -87,6 +87,12 @@ export class ListingsUtilsService {
     return true
   }
 
+  validateIntFilterOperator(operator: string) {
+    const validOperator = ['lt', 'lte', 'gt', 'gte']
+
+    return validOperator.includes(operator)
+  }
+
   generateQuerySelect(fields?: ListingKey[]) {
     if (!fields || fields?.length <= 0 || !this.validateSelectFields(fields)) return undefined
 
