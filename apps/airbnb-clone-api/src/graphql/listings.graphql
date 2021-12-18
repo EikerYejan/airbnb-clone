@@ -16,6 +16,10 @@ enum ListingOrderBy {
   bedrooms
   beds
   bathrooms
+  price
+  weeklyPrice
+  monthlyPrice
+  cleaningFee
 }
 
 type Listing {
@@ -52,22 +56,29 @@ type Listing {
   reviewsCount: Int
 }
 
+input IntFilter {
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+}
+
 input GetListings {
   listingUrl: String
   name: String
-  minimumNights: Int
-  maximumNights: Int
-  accommodates: Int
-  bedrooms: Float
-  beds: Int
+  minimumNights: IntFilter
+  maximumNights: IntFilter
+  accommodates: IntFilter
+  bedrooms: IntFilter
+  beds: IntFilter
   bathrooms: Float
   createdAt: Date
   updatedAt: Date
   propertyType: String
-  price: Int
-  weeklyPrice: Int
-  monthlyPrice: Int
-  cleaningFee: Int
+  price: IntFilter
+  weeklyPrice: IntFilter
+  monthlyPrice: IntFilter
+  cleaningFee: IntFilter
   page: Int
   size: Int
   order: Order
