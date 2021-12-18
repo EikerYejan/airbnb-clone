@@ -44,7 +44,6 @@ describe('ListingsUtilsService', () => {
 
     expect(service.generateQueryFilters(filters)).toEqual({
       beds: 2,
-      name: { contains: undefined },
     })
   })
 
