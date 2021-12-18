@@ -6,6 +6,10 @@ import { GetListingsDto } from './dtos/getListings.dto'
 
 type ListingKey = keyof Listing
 
+type QueryFields = Partial<Omit<GetListingsDto, 'select'>> & {
+  select?: Array<ListingKey | ListingOrderBy>
+}
+
 @Injectable()
 export class ListingsUtilsService {
   private allowedSelectFields: Array<ListingKey | ListingOrderBy> = [
@@ -59,7 +63,7 @@ export class ListingsUtilsService {
     weeklyPrice,
     monthlyPrice,
     cleaningFee,
-  }: GetListingsDto): Prisma.ListingWhereInput {
+  }: QueryFields): Prisma.ListingWhereInput {
     return removeUndefinedEntries({
       bedrooms,
       beds,
@@ -71,7 +75,7 @@ export class ListingsUtilsService {
       weeklyPrice,
       monthlyPrice,
       cleaningFee,
-      name: { contains: name },
+      name: typeof name === 'string' ? { contains: name } : name,
     })
   }
 
@@ -105,7 +109,7 @@ export class ListingsUtilsService {
     return { [sortField]: order }
   }
 
-  generateFilters(query: GetListingsDto): Partial<Prisma.ListingFindManyArgs> {
+  generateFilters(query: QueryFields): Partial<Prisma.ListingFindManyArgs> {
     const { order, orderBy } = query
 
     return removeUndefinedEntries({

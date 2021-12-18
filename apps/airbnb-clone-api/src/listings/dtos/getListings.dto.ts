@@ -35,7 +35,7 @@ type DTOFields = Partial<Pick<Listing, 'propertyType' | 'createdAt' | 'updatedAt
 export class GetListingsDto implements DTOFields {
   @IsString()
   @IsOptional()
-  name?: string
+  name?: string | Prisma.StringFilter
 
   @IsNumber()
   @IsOptional()

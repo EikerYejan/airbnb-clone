@@ -63,9 +63,16 @@ input IntFilter {
   gte: Int
 }
 
+input StringFilter {
+  equals: String
+  contains: String
+  startsWith: String
+  endsWith: String
+}
+
 input GetListings {
   listingUrl: String
-  name: String
+  name: StringFilter
   minimumNights: IntFilter
   maximumNights: IntFilter
   accommodates: IntFilter
