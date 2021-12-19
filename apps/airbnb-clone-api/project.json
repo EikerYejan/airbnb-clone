@@ -48,7 +48,7 @@
         "passWithNoTests": true,
         "codeCoverage": true,
         "verbose": true,
-        "coverageReporters": ["clover"]
+        "coverageReporters": ["clover", "html", "json"]
       }
     },
     "type-check": {

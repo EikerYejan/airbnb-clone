@@ -37,6 +37,7 @@ export class AuthGuard implements CanActivate {
   canActivate(context: ExecutionContext) {
     try {
       const req = this.getRequest(context)
+
       const { headers, query, path } = req || {}
       const incomingKey = headers?.['x-api-key'] || query?.apiKey
 
