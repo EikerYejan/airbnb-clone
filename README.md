@@ -2,6 +2,7 @@
 
 # AirbnbClone
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=EikerYejan_airbnb-clone&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=EikerYejan_airbnb-clone)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=EikerYejan_airbnb-clone&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=EikerYejan_airbnb-clone)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=EikerYejan_airbnb-clone&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=EikerYejan_airbnb-clone)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=EikerYejan_airbnb-clone&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=EikerYejan_airbnb-clone)
