@@ -17,10 +17,13 @@ jobs:
           pkg-manager: yarn
       - run:
           command: yarn run test:api
-          name: Run YARN tests
-      - run: codecov/upload
+          name: Run tests
+      - codecov/upload
 
 workflows:
+  test-branch:
+    jobs:
+      - test
   heroku-deploy:
     jobs:
       - test
