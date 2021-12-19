@@ -11,7 +11,7 @@ export class IsValidFilter implements ValidatorConstraintInterface {
   private validatorService = new ListingsUtilsService()
 
   validate(value: Prisma.IntFilter | Prisma.StringFilter | string | number) {
-    if (typeof value === 'number') return true
+    if (['string', 'number'].includes(typeof value)) return true
     const key = Object.keys(value)?.[0]
     const val = value?.[key]
 

@@ -28,6 +28,7 @@ describe('AuthGuard', () => {
     const app = await createTestingModule().compile()
 
     guard = app.get<AuthGuard>(AuthGuard)
+    guard?.onModuleInit()
   })
 
   afterAll(() => {

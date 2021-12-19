@@ -1,4 +1,5 @@
-import { transformFilter } from './getListings.dto'
+import { ArgumentMetadata, ValidationPipe } from '@nestjs/common'
+import { GetListingsDto, transformFilter } from './getListings.dto'
 import { IsValidFilter } from './isValidFilter'
 import { IsValidOrderByField } from './validateOrderByFields'
 import { IsValidSelectField } from './validateSelectFields'
@@ -52,6 +53,14 @@ describe('Validation DTOs', () => {
     it('Should return int filter', () => {
       expect(transformFilter('lt_5', Number)).toEqual({ lt: 5 })
     })
+
+    it('Should return raw string', () => {
+      expect(transformFilter('string')).toEqual('string')
+    })
+
+    it('Should return string filter', () => {
+      expect(transformFilter('equals_USA')).toEqual({ equals: 'USA' })
+    })
   })
 
   describe('Validate int filter', () => {
@@ -78,6 +87,66 @@ describe('Validation DTOs', () => {
 
     it('Should return false when recieving an invalid int filter', () => {
       expect(intFilterValidator.validate({ not: 4 })).toBeFalsy()
+    })
+  })
+
+  describe('getListingsDTO', () => {
+    let target: ValidationPipe
+    const metadata: ArgumentMetadata = { type: 'body', metatype: GetListingsDto }
+
+    beforeEach(() => {
+      target = new ValidationPipe({
+        transform: true,
+        whitelist: true,
+        forbidNonWhitelisted: true,
+      })
+    })
+
+    it('Should validate and transform', async () => {
+      try {
+        const expected = {
+          beds: { lt: 45 },
+          minimumNights: { gt: 2 },
+          maximumNights: { lt: 10 },
+          bedrooms: { lte: 15 },
+          bathrooms: { gte: 2 },
+          price: { gt: 100 },
+          weeklyPrice: { gt: 100 },
+          monthlyPrice: { gt: 100 },
+          cleaningFee: { gt: 10 },
+          address: { contains: '123' },
+          country: 'USA',
+          select: ['id', 'name'],
+        }
+        const data = {
+          beds: 'lt_45',
+          minimumNights: 'gt_2',
+          maximumNights: 'lt_10',
+          bedrooms: 'lte_15',
+          bathrooms: 'gte_2',
+          price: 'gt_100',
+          weeklyPrice: 'gt_100',
+          monthlyPrice: 'gt_100',
+          cleaningFee: 'gt_10',
+          address: 'contains_123',
+          country: 'USA',
+          select: 'id,name',
+        }
+
+        const result = await target.transform(data, metadata)
+
+        expect(result).toMatchObject(expected)
+      } catch (error) {
+        expect(error).toBeUndefined()
+      }
+    })
+
+    it('Should fail validation', async () => {
+      try {
+        await target.transform({ size: 'size', page: 'page', name: 454545 }, metadata)
+      } catch (error) {
+        expect(error.response).toBeDefined()
+      }
     })
   })
 })

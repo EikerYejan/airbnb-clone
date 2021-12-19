@@ -31,12 +31,9 @@ export function transformFilter<T extends Transformer>(
 
   if (!b && !!a) return transformer ? transformer(a) : a
 
-  const parsedA = a
   const parsedB = transformer ? transformer(b) : b
 
-  if (!!parsedB && !!parsedA) return { [a]: parsedB }
-
-  return undefined
+  return { [a]: parsedB }
 }
 
 type DTOFields = Partial<Pick<Listing, 'propertyType' | 'createdAt' | 'updatedAt'>>
@@ -102,7 +99,7 @@ export class GetListingsDto implements DTOFields {
   @IsOptional()
   cleaningFee?: Prisma.IntFilter | number
 
-  @Transform(({ value = [] }) => value?.split(','))
+  @Transform(({ value }) => value?.split(','))
   @IsArray()
   @ArrayUnique()
   @IsOptional()
