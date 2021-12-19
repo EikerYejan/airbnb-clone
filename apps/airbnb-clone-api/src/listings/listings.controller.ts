@@ -84,7 +84,7 @@ export class ListingsController {
   async updateListing(@Body() listing: UpdateListingDto, @Param('id') id: string) {
     try {
       const response = await this.listingsService.update({
-        data: listing,
+        data: this.util.generateCreateOrUpdatePayload(listing),
         where: { id },
       })
 
@@ -127,7 +127,9 @@ export class ListingsController {
   @UseGuards(AuthGuard)
   async createListing(@Body() listing: CreateListingDto) {
     try {
-      const response = await this.listingsService.create({ data: listing })
+      const response = await this.listingsService.create({
+        data: this.util.generateCreateOrUpdatePayload(listing),
+      })
 
       return {
         statusCode: 200,

@@ -41,5 +41,7 @@ model Listing {
   monthlyPrice         Int?      @map("monthly_price")
   cleaningFee          Int?      @map("cleaning_fee")
   images               Json
-  address              Json
+  address              String
+  country              String
+  addressJson          Json
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Listing, Prisma } from '@prisma/client'
-import { ListingOrderBy } from '../graphql/graphql.typings'
+import { ListingOrderBy, CreateListing } from '../graphql/graphql.typings'
 import { removeUndefinedEntries } from '../utils'
 import { GetListingsDto } from './dtos/getListings.dto'
 
@@ -9,6 +9,12 @@ type ListingKey = keyof Listing
 type QueryFields = Partial<Omit<GetListingsDto, 'select'>> & {
   select?: Array<ListingKey | ListingOrderBy>
 }
+
+export type CreateListingData = Omit<CreateListing, 'images' | 'addressJson'> & {
+  images: Listing['images']
+  addressJson: Listing['addressJson']
+}
+export type UpdateListingData = Partial<CreateListingData>
 
 @Injectable()
 export class ListingsUtilsService {
@@ -45,6 +51,8 @@ export class ListingsUtilsService {
     'weeklyPrice',
     'monthlyPrice',
     'cleaningFee',
+    'images',
+    'address',
   ]
 
   generatePagination(size: number, page: number) {
@@ -63,6 +71,8 @@ export class ListingsUtilsService {
     weeklyPrice,
     monthlyPrice,
     cleaningFee,
+    address,
+    country,
   }: QueryFields): Prisma.ListingWhereInput {
     return removeUndefinedEntries({
       bedrooms,
@@ -76,6 +86,8 @@ export class ListingsUtilsService {
       monthlyPrice,
       cleaningFee,
       name: typeof name === 'string' ? { contains: name } : name,
+      address: typeof address === 'string' ? { contains: address } : address,
+      country: typeof country === 'string' ? { contains: country } : country,
     })
   }
 
@@ -132,5 +144,16 @@ export class ListingsUtilsService {
       hasNextPage: page < totalPages,
       hasPreviousPage: page > 1,
     }
+  }
+
+  generateCreateOrUpdatePayload(data: CreateListingData | UpdateListingData) {
+    return {
+      ...data,
+      addressJson: {
+        ...(typeof data.addressJson === 'object' ? data.addressJson : {}),
+        country: data.country,
+        street: data.address,
+      },
+    } as Prisma.ListingCreateInput
   }
 }
