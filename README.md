@@ -9,6 +9,11 @@
 [![CircleCI](https://circleci.com/gh/EikerYejan/airbnb-clone/tree/main.svg?style=svg)](https://circleci.com/gh/EikerYejan/airbnb-clone/tree/main)
 [![codecov](https://codecov.io/gh/EikerYejan/airbnb-clone/branch/main/graph/badge.svg?token=35VITD6EHI)](https://codecov.io/gh/EikerYejan/airbnb-clone)
 
+[Rest API Endpoint](https://airbnb-clone-nestjs-api.herokuapp.com/api/listings)  | 
+[GraphQL](https://airbnb-clone-nestjs-api.herokuapp.com/api/graphql)  | 
+[Apollo GraphQL Explorer](https://studio.apollographql.com/sandbox?endpoint=https%3A%2F%2Fairbnb-clone-nestjs-api.herokuapp.com%2Fapi%2Fgraphql)  |
+[Swagger Docs](https://airbnb-clone-nestjs-api.herokuapp.com/docs/)
+
 This project was generated using [Nx](https://nx.dev).
 
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
