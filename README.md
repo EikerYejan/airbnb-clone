@@ -7,6 +7,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=EikerYejan_airbnb-clone&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=EikerYejan_airbnb-clone)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=EikerYejan_airbnb-clone&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=EikerYejan_airbnb-clone)
 [![CircleCI](https://circleci.com/gh/EikerYejan/airbnb-clone/tree/main.svg?style=svg)](https://circleci.com/gh/EikerYejan/airbnb-clone/tree/main)
+[![codecov](https://codecov.io/gh/EikerYejan/airbnb-clone/branch/main/graph/badge.svg?token=35VITD6EHI)](https://codecov.io/gh/EikerYejan/airbnb-clone)
 
 This project was generated using [Nx](https://nx.dev).
 
