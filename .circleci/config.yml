@@ -24,14 +24,14 @@ jobs:
 workflows:
   test-branch:
     jobs:
-      - test
+      - test:
+        filters:
+          branches:
+            ignore:
+              - main
   heroku-deploy:
     jobs:
-      - test:
-          filters:
-            branches:
-              ignore:
-                - main
+      - test
       - heroku/deploy-via-git:
           force: true
           requires:
