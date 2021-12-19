@@ -1,5 +1,3 @@
-# TODO: Reuse fields from the base class
-
 scalar Date
 
 enum Order {
@@ -20,6 +18,51 @@ enum ListingOrderBy {
   weeklyPrice
   monthlyPrice
   cleaningFee
+}
+
+enum LocationType {
+  Point
+}
+
+type Images {
+  thumbnail_url: String
+  picture_url: String
+}
+
+type Location {
+  type: LocationType!
+  is_location_exact: Boolean!
+  coordinates: [Float!]!
+}
+
+type Address {
+  street: String!
+  suburb: String
+  government_area: String
+  market: String
+  country: String!
+  country_code: String!
+  location: Location!
+}
+
+input ImagesInput {
+  picture_url: String
+}
+
+input LocationInput {
+  type: LocationType!
+  is_location_exact: Boolean!
+  coordinates: [Float!]!
+}
+
+input AddressInput {
+  street: String!
+  suburb: String
+  government_area: String
+  market: String
+  country: String!
+  country_code: String!
+  location: LocationInput!
 }
 
 type Listing {
@@ -54,6 +97,8 @@ type Listing {
   houseRules: String
   lastScraped: Date
   reviewsCount: Int
+  images: Images!
+  address: Address!
 }
 
 input IntFilter {
@@ -121,6 +166,8 @@ input UpdateListing {
   weeklyPrice: Int
   monthlyPrice: Int
   cleaningFee: Int
+  images: ImagesInput
+  address: AddressInput
 }
 
 input CreateListing {
@@ -152,6 +199,8 @@ input CreateListing {
   houseRules: String
   lastScraped: Date
   reviewsCount: Int
+  images: ImagesInput!
+  address: AddressInput!
 }
 
 type QueryPageInfo {

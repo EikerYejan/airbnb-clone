@@ -1,7 +1,14 @@
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql'
+import { Listing } from '@prisma/client'
 import { ListingsUtilsService } from '../listings/listings-utils.service'
 import { ListingsService } from '../listings/listings.service'
-import { CreateListing, GetListings, UpdateListing } from './graphql.typings'
+import { CreateListing, GetListings } from './graphql.typings'
+
+type CreateListingData = Omit<CreateListing, 'images' | 'address'> & {
+  images: Listing['images']
+  address: Listing['address']
+}
+type UpdateListingData = Partial<CreateListingData>
 
 @Resolver('Listing')
 export class GraphqlService {
@@ -26,8 +33,9 @@ export class GraphqlService {
     return this.listings.get({ where: { id } })
   }
 
+  // TODO: Validate address.location.coordinates length and type
   @Mutation('updateListing')
-  updateListing(@Args('id') id: string, @Args('data') data?: UpdateListing) {
+  updateListing(@Args('id') id: string, @Args('data') data?: UpdateListingData) {
     return this.listings.update({ data, where: { id } })
   }
 
@@ -36,8 +44,9 @@ export class GraphqlService {
     return this.listings.delete({ where: { id } })
   }
 
+  // TODO: Validate address.location.coordinates length and type
   @Mutation('createListing')
-  createListing(@Args('data') data: CreateListing) {
+  createListing(@Args('data') data: CreateListingData) {
     return this.listings.create({ data })
   }
 }

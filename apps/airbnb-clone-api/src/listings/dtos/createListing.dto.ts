@@ -1,15 +1,22 @@
 import { Listing } from '@prisma/client'
+import { Transform, Type } from 'class-transformer'
 import {
   ArrayUnique,
   IsArray,
+  IsDate,
   IsNotEmpty,
+  IsNotEmptyObject,
   IsNumber,
   IsOptional,
   IsString,
   Min,
+  ValidateNested,
 } from 'class-validator'
+import { ListingAddressDto } from './listingAddress.dto'
+import { ListingImagesDto } from './listingImages.dto'
 
-export class CreateListingDto implements Omit<Listing, 'id' | 'createdAt' | 'updatedAt'> {
+type DTOFields = Omit<Listing, 'id' | 'createdAt' | 'updatedAt' | 'address'>
+export class CreateListingDto implements DTOFields {
   @IsString()
   @IsNotEmpty()
   listingUrl: string
@@ -93,8 +100,9 @@ export class CreateListingDto implements Omit<Listing, 'id' | 'createdAt' | 'upd
   @IsOptional()
   houseRules: string
 
-  @IsString()
+  @IsDate()
   @IsOptional()
+  @Transform(({ value }) => new Date(value))
   lastScraped: Date
 
   @IsNumber()
@@ -107,15 +115,25 @@ export class CreateListingDto implements Omit<Listing, 'id' | 'createdAt' | 'upd
   @IsNumber()
   @Min(1)
   @IsOptional()
-  weeklyPrice: number
+  weeklyPrice: number | null
 
   @IsNumber()
   @Min(1)
   @IsOptional()
-  monthlyPrice: number
+  monthlyPrice: number | null
 
   @IsNumber()
   @Min(1)
   @IsOptional()
-  cleaningFee: number
+  cleaningFee: number | null
+
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => ListingAddressDto)
+  address: Listing['address']
+
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => ListingImagesDto)
+  images: Listing['images']
 }

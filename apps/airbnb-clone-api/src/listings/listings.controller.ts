@@ -116,8 +116,8 @@ export class ListingsController {
   @UsePipes(
     new ValidationPipe({
       transform: true,
-      forbidNonWhitelisted: true,
       whitelist: true,
+      forbidNonWhitelisted: true,
     }),
   )
   async createListing(@Body() listing: CreateListingDto) {

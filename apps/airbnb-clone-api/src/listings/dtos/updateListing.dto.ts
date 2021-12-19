@@ -1,5 +1,16 @@
 import { Listing } from '@prisma/client'
-import { ArrayUnique, IsArray, IsNumber, IsOptional, IsString } from 'class-validator'
+import { Type } from 'class-transformer'
+import {
+  ArrayUnique,
+  IsArray,
+  IsNotEmptyObject,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator'
+import { ListingAddressDto } from './listingAddress.dto'
+import { ListingImagesDto } from './listingImages.dto'
 
 export class UpdateListingDto implements Partial<Omit<Listing, 'id'>> {
   @IsString()
@@ -110,4 +121,16 @@ export class UpdateListingDto implements Partial<Omit<Listing, 'id'>> {
   @IsNumber()
   @IsOptional()
   cleaningFee?: number
+
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => ListingAddressDto)
+  address?: Listing['address']
+
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => ListingImagesDto)
+  images?: Listing['images']
 }
