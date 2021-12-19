@@ -5,6 +5,7 @@ version: 2.1
 orbs:
   node: circleci/node@4.9
   heroku: circleci/heroku@1.2
+  codecov: codecov/codecov@3.1.1
 
 jobs:
   test:
@@ -17,6 +18,7 @@ jobs:
       - run:
           command: yarn run test:api
           name: Run YARN tests
+      - run: codecov/upload
 
 workflows:
   heroku-deploy:
