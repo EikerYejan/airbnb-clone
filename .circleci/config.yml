@@ -18,7 +18,8 @@ jobs:
       - run:
           command: yarn run test:api
           name: Run tests
-      - codecov/upload
+      - codecov/upload:
+          file: './coverage/apps/airbnb-clone-api/clover.xml'
 
 workflows:
   test-branch:
@@ -29,7 +30,8 @@ workflows:
       - test:
           filters:
             branches:
-              ignore: main
+              ignore:
+                - main
       - heroku/deploy-via-git:
           force: true
           requires:

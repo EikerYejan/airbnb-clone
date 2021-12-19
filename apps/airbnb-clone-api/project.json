@@ -47,7 +47,8 @@
         "jestConfig": "apps/airbnb-clone-api/jest.config.js",
         "passWithNoTests": true,
         "codeCoverage": true,
-        "verbose": true
+        "verbose": true,
+        "coverageReporters": ["clover"]
       }
     },
     "type-check": {
