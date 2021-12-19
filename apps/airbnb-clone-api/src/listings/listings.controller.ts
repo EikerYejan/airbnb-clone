@@ -11,8 +11,10 @@ import {
   UsePipes,
   ValidationPipe,
   Post,
+  UseGuards,
 } from '@nestjs/common'
 import { ApiSecurity } from '@nestjs/swagger'
+import { AuthGuard } from '../auth/auth.guard'
 import { CreateListingDto } from './dtos/createListing.dto'
 import { GetListingsDto } from './dtos/getListings.dto'
 import { UpdateListingDto } from './dtos/updateListing.dto'
@@ -71,6 +73,7 @@ export class ListingsController {
   }
 
   @Patch('/:id')
+  @UseGuards(AuthGuard)
   @UsePipes(
     new ValidationPipe({
       transform: true,
@@ -96,6 +99,7 @@ export class ListingsController {
     }
   }
 
+  @UseGuards(AuthGuard)
   @Delete('/:id')
   async deleteListing(@Param('id') id: string) {
     try {
@@ -120,6 +124,7 @@ export class ListingsController {
       forbidNonWhitelisted: true,
     }),
   )
+  @UseGuards(AuthGuard)
   async createListing(@Body() listing: CreateListingDto) {
     try {
       const response = await this.listingsService.create({ data: listing })

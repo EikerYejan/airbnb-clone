@@ -10,7 +10,6 @@ import { join } from 'path'
 import { ListingsModule } from '../listings/listings.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { AuthGuard } from '../auth/auth.guard'
 import { loadConfig } from '../config'
 import { DateScalar } from '../graphql/date.scalar'
 import { AppThrottlerGuard } from '../throttler/throttler.guard'
@@ -49,10 +48,6 @@ const envFilePath = join(appDir, '.env')
     }),
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    { provide: APP_GUARD, useClass: AppThrottlerGuard },
-    { provide: APP_GUARD, useClass: AuthGuard },
-  ],
+  providers: [AppService, { provide: APP_GUARD, useClass: AppThrottlerGuard }],
 })
 export class AppModule {}

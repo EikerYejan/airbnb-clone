@@ -1,5 +1,7 @@
+import { UseGuards } from '@nestjs/common'
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql'
 import { Listing } from '@prisma/client'
+import { AuthGuard } from '../auth/auth.guard'
 import { ListingsUtilsService } from '../listings/listings-utils.service'
 import { ListingsService } from '../listings/listings.service'
 import { CreateListing, GetListings } from './graphql.typings'
@@ -35,17 +37,20 @@ export class GraphqlService {
 
   // TODO: Validate address.location.coordinates length and type
   @Mutation('updateListing')
+  @UseGuards(AuthGuard)
   updateListing(@Args('id') id: string, @Args('data') data?: UpdateListingData) {
     return this.listings.update({ data, where: { id } })
   }
 
   @Mutation('deleteListing')
+  @UseGuards(AuthGuard)
   deleteListing(@Args('id') id: string) {
     return this.listings.delete({ where: { id } })
   }
 
   // TODO: Validate address.location.coordinates length and type
   @Mutation('createListing')
+  @UseGuards(AuthGuard)
   createListing(@Args('data') data: CreateListingData) {
     return this.listings.create({ data })
   }
