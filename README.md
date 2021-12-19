@@ -2,6 +2,11 @@
 
 # AirbnbClone
 
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=EikerYejan_airbnb-clone&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=EikerYejan_airbnb-clone)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=EikerYejan_airbnb-clone&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=EikerYejan_airbnb-clone)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=EikerYejan_airbnb-clone&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=EikerYejan_airbnb-clone)
+[![CircleCI](https://circleci.com/gh/EikerYejan/airbnb-clone/tree/main.svg?style=svg)](https://circleci.com/gh/EikerYejan/airbnb-clone/tree/main)
+
 This project was generated using [Nx](https://nx.dev).
 
 <p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
