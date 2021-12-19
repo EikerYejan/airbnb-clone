@@ -1,10 +1,12 @@
 import { transformIntFilter } from './getListings.dto'
+import { IsValidIntFilter } from './validateIntFilter'
 import { IsValidOrderByField } from './validateOrderByFields'
 import { IsValidSelectField } from './validateSelectFields'
 
 describe('Validation DTOs', () => {
   const selectFieldsValidator = new IsValidSelectField()
   const orderByFieldsValidator = new IsValidOrderByField()
+  const intFilterValidator = new IsValidIntFilter()
 
   it('Should allow correct select values (id,name)', () => {
     expect(selectFieldsValidator.validate(['id', 'name'])).toBeTruthy()
@@ -49,6 +51,33 @@ describe('Validation DTOs', () => {
 
     it('Should return int filter', () => {
       expect(transformIntFilter('lt_5')).toEqual({ lt: 5 })
+    })
+  })
+
+  describe('Validate int filter', () => {
+    it('Should return true when recieving a number', () => {
+      expect(intFilterValidator.validate(5)).toBeTruthy()
+    })
+
+    it('Should return true when recieving a logic filter', () => {
+      expect(intFilterValidator.validate({ lt: 5 })).toBeTruthy()
+    })
+
+    it('Should return false', () => {
+      const message = intFilterValidator.defaultMessage({
+        value: { lt: 5 },
+        property: 'beds',
+        constraints: [],
+        object: {},
+        targetName: 'testDto',
+      })
+
+      expect(intFilterValidator.validate({})).toBeFalsy()
+      expect(message).toEqual('parameter lt is not a valid beds value')
+    })
+
+    it('Should return false when recieving an invalid int filter', () => {
+      expect(intFilterValidator.validate({ not: 4 })).toBeFalsy()
     })
   })
 })
