@@ -7,22 +7,22 @@ import {
 import { ListingsUtilsService } from '../listings-utils.service'
 
 @ValidatorConstraint({ async: false, name: 'IsValidOrderByField' })
-export class IsValidIntFilter implements ValidatorConstraintInterface {
+export class IsValidFilter implements ValidatorConstraintInterface {
   private validatorService = new ListingsUtilsService()
 
-  validate(value: Prisma.IntFilter | number) {
+  validate(value: Prisma.IntFilter | Prisma.StringFilter | string | number) {
     if (typeof value === 'number') return true
     const key = Object.keys(value)?.[0]
     const val = value?.[key]
 
     if (!key || !val) return false
 
-    return typeof val === 'number' && this.validatorService.validateIntFilterOperator(key)
+    return this.validatorService.validateFilterOperator(key)
   }
 
   defaultMessage(validationArguments?: ValidationArguments): string {
     return `parameter ${Object.keys(validationArguments?.value)?.join(', ')} is not a valid ${
       validationArguments.property
-    } value`
+    } filter`
   }
 }

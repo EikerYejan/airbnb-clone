@@ -103,10 +103,19 @@ export class ListingsUtilsService {
     return true
   }
 
-  validateIntFilterOperator(operator: string) {
-    const validOperator = ['lt', 'lte', 'gt', 'gte']
+  validateFilterOperator(operator: string) {
+    const validOperators = [
+      'lt',
+      'lte',
+      'gt',
+      'gte',
+      'contains',
+      'startsWith',
+      'endsWith',
+      'equals',
+    ]
 
-    return validOperator.includes(operator)
+    return validOperators.includes(operator)
   }
 
   generateQuerySelect(fields?: ListingKey[]) {
