@@ -33,6 +33,13 @@ export function transformFilter<T extends Transformer>(
 
   if (!b && !!a) return transformer ? transformer(a) : a
 
+  // Number range
+  if (a === 'in') {
+    const [rangeStart, rangeEnd] = b.split('-').map(Number)
+
+    return { gte: rangeStart, lte: rangeEnd }
+  }
+
   const parsedB = transformer ? transformer(b) : b
 
   return { [a]: parsedB }
