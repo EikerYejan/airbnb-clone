@@ -12,6 +12,8 @@ export class IsValidFilter implements ValidatorConstraintInterface {
 
   validate(value: Prisma.IntFilter | Prisma.StringFilter | string | number) {
     if (['string', 'number'].includes(typeof value)) return true
+    if (Object.keys(value)?.length <= 0) return false
+
     return Object.keys(value).every((key) => {
       const val = value?.[key]
 
@@ -22,8 +24,8 @@ export class IsValidFilter implements ValidatorConstraintInterface {
   }
 
   defaultMessage(validationArguments?: ValidationArguments): string {
-    return `parameter ${Object.keys(validationArguments?.value)
-      .filter((key) => !this.validatorService.validateFilterOperator(key))
-      ?.join(', ')} is not a valid ${validationArguments.property} filter`
+    return `parameter ${Object.keys(validationArguments?.value)?.join(', and')} is not a valid ${
+      validationArguments.property
+    } filter`
   }
 }
