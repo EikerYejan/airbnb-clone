@@ -25,10 +25,10 @@ workflows:
   test-branch:
     jobs:
       - test:
-        filters:
-          branches:
-            ignore:
-              - main
+          filters:
+            branches:
+              ignore:
+                - main
   heroku-deploy:
     jobs:
       - test
