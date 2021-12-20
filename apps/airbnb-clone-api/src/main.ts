@@ -8,7 +8,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   const globalPrefix = 'api'
   const port = process.env.PORT || 3333
-  const config = new DocumentBuilder()
+
+  const swaggerConfig = new DocumentBuilder()
     .addApiKey(
       {
         type: 'apiKey',
@@ -19,15 +20,15 @@ async function bootstrap() {
     )
     .setTitle('Airbnb clone API')
     .setDescription('A NestJS API using Prisma and MongoDB')
-    .setVersion('1.0')
+    .setVersion(process.env.npm_package_version)
     .addTag('listings')
     .build()
 
   app.setGlobalPrefix(globalPrefix)
   app.use(morgan('combined'))
 
-  const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('docs', app, document)
+  const document = SwaggerModule.createDocument(app, swaggerConfig, { ignoreGlobalPrefix: false })
+  SwaggerModule.setup('/api/docs', app, document)
 
   const server = await app.listen(port)
 

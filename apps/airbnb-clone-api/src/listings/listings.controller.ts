@@ -13,8 +13,9 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common'
-import { ApiSecurity } from '@nestjs/swagger'
+import { ApiResponse, ApiSecurity } from '@nestjs/swagger'
 import { AuthGuard } from '../auth/auth.guard'
+import { ListingDocsSchema } from '../docs/listing.schema'
 import { CreateListingDto } from './dtos/createListing.dto'
 import { GetListingsDto } from './dtos/getListings.dto'
 import { UpdateListingDto } from './dtos/updateListing.dto'
@@ -32,6 +33,7 @@ export class ListingsController {
   private logger = new Logger('ListingsController')
 
   @Get()
+  @ApiResponse({ status: 200, type: () => ListingDocsSchema })
   @UsePipes(
     new ValidationPipe({ transform: true, transformOptions: { enableImplicitConversion: true } }),
   )
