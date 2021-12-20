@@ -1,5 +1,3 @@
-
-
 # AirbnbClone
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=EikerYejan_airbnb-clone&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=EikerYejan_airbnb-clone)
@@ -9,10 +7,9 @@
 [![CircleCI](https://circleci.com/gh/EikerYejan/airbnb-clone/tree/main.svg?style=svg)](https://circleci.com/gh/EikerYejan/airbnb-clone/tree/main)
 [![codecov](https://codecov.io/gh/EikerYejan/airbnb-clone/branch/main/graph/badge.svg?token=35VITD6EHI)](https://codecov.io/gh/EikerYejan/airbnb-clone)
 
-[Rest API Endpoint](https://airbnb-clone-nestjs-api.herokuapp.com/api/listings)  | 
-[GraphQL](https://airbnb-clone-nestjs-api.herokuapp.com/api/graphql)  | 
-[Apollo GraphQL Explorer](https://studio.apollographql.com/sandbox?endpoint=https%3A%2F%2Fairbnb-clone-nestjs-api.herokuapp.com%2Fapi%2Fgraphql)  |
-[Swagger Docs](https://airbnb-clone-nestjs-api.herokuapp.com/docs/)
+[NestJS API](https://github.com/EikerYejan/airbnb-clone/blob/main/apps/airbnb-clone-api/CHANGELOG.md)
+
+NextJS Webapp (Comming soon!)
 
 This project was generated using [Nx](https://nx.dev).
 
@@ -90,8 +87,6 @@ Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
 
 ## ☁ Nx Cloud
 
