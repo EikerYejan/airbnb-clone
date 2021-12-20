@@ -57,6 +57,13 @@
         "cwd": "apps/airbnb-clone-api/",
         "command": "yarn tsc --project apps/airbnb-clone-api/tsconfig.app.json"
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "remote": "origin",
+        "baseBranch": "main"
+      }
     }
   },
   "tags": []
