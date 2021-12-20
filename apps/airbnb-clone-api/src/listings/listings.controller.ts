@@ -56,6 +56,7 @@ export class ListingsController {
     }
   }
 
+  @ApiResponse({ status: 200, type: () => ListingDocsSchema })
   @Get('/:id')
   async getListing(@Param('id') id: string) {
     try {
