@@ -53,6 +53,7 @@ export class ListingsUtilsService {
     'cleaningFee',
     'images',
     'address',
+    'country',
   ]
 
   generatePagination(size: number, page: number) {
