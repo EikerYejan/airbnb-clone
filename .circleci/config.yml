@@ -31,7 +31,10 @@ workflows:
                 - main
   heroku-deploy:
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              only: main
       - heroku/deploy-via-git:
           force: true
           requires:
