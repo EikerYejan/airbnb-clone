@@ -7,7 +7,7 @@
 [![CircleCI](https://circleci.com/gh/EikerYejan/airbnb-clone/tree/main.svg?style=svg)](https://circleci.com/gh/EikerYejan/airbnb-clone/tree/main)
 [![codecov](https://codecov.io/gh/EikerYejan/airbnb-clone/branch/main/graph/badge.svg?token=35VITD6EHI)](https://codecov.io/gh/EikerYejan/airbnb-clone)
 
-[NestJS API](https://github.com/EikerYejan/airbnb-clone/blob/main/apps/airbnb-clone-api/CHANGELOG.md)
+[NestJS API](https://github.com/EikerYejan/airbnb-clone/blob/main/apps/airbnb-clone-api/README.md)
 
 NextJS Webapp (Comming soon!)
 
