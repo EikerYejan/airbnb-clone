@@ -55,6 +55,12 @@ describe('ListingsUtilsService', () => {
         name: {
           contains: 'NAME',
         },
+        address: {
+          contains: 'ADDRESS',
+        },
+        country: {
+          contains: 'USA',
+        },
       },
       select: {
         name: true,
@@ -69,10 +75,19 @@ describe('ListingsUtilsService', () => {
         size: 15,
         page: 1,
         name: 'NAME',
+        address: 'ADDRESS',
+        country: 'USA',
         select: ['name'],
         orderBy: 'beds',
         order: SortOrder.DESC,
       }),
     ).toEqual(expected)
+  })
+
+  it('Should create update payload', () => {
+    const data = { name: 'NAME', country: 'USA', address: 'ADDRESS' }
+    const expected = { ...data, addressJson: { street: 'ADDRESS', country: 'USA' } }
+
+    expect(service.generateCreateOrUpdatePayload(data)).toMatchObject(expected)
   })
 })

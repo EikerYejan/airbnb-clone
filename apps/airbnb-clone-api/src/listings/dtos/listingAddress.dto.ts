@@ -33,10 +33,6 @@ class ListingLocationDto {
 export class ListingAddressDto {
   @IsString()
   @IsNotEmpty()
-  street: string
-
-  @IsString()
-  @IsNotEmpty()
   suburb: string
 
   @IsString()
@@ -46,10 +42,6 @@ export class ListingAddressDto {
   @IsString()
   @IsNotEmpty()
   market: string
-
-  @IsString()
-  @IsNotEmpty()
-  country: string
 
   @IsString()
   @IsNotEmpty()

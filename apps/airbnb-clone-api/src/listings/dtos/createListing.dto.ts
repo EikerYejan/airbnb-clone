@@ -15,7 +15,7 @@ import {
 import { ListingAddressDto } from './listingAddress.dto'
 import { ListingImagesDto } from './listingImages.dto'
 
-type DTOFields = Omit<Listing, 'id' | 'createdAt' | 'updatedAt' | 'address'>
+type DTOFields = Omit<Listing, 'id' | 'createdAt' | 'updatedAt' | 'addressJson'>
 export class CreateListingDto implements DTOFields {
   @IsString()
   @IsNotEmpty()
@@ -127,10 +127,18 @@ export class CreateListingDto implements DTOFields {
   @IsOptional()
   cleaningFee: number | null
 
+  @IsString()
+  @IsNotEmpty()
+  address: string
+
+  @IsString()
+  @IsNotEmpty()
+  country: string
+
   @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => ListingAddressDto)
-  address: Listing['address']
+  addressJson: Listing['address']
 
   @IsNotEmptyObject()
   @ValidateNested()

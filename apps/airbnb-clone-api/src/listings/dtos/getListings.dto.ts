@@ -10,7 +10,7 @@ import {
   IsEnum,
 } from 'class-validator'
 import { ListingOrderBy, Order } from '../../graphql/graphql.typings'
-import { IsValidIntFilter } from './validateIntFilter'
+import { IsValidFilter } from './isValidFilter'
 import { IsValidOrderByField } from './validateOrderByFields'
 import { IsValidSelectField } from './validateSelectFields'
 
@@ -19,16 +19,21 @@ export enum SortOrder {
   DESC = 'desc',
 }
 
+type Transformer = (v: string) => unknown
+
 // TODO: move to a separate file
-export function transformIntFilter(filter?: string): Prisma.IntFilter | number {
+export function transformFilter<T extends Transformer>(
+  filter?: string,
+  transformer?: T,
+): Prisma.IntFilter | Prisma.StringFilter | string | number {
   if (!filter || filter.length < 0) return undefined
-
   const [a, b] = filter.split('_')
-  const parsedA = Number(a)
 
-  if (Number.isNaN(parsedA)) return { [a]: Number(b) }
+  if (!b && !!a) return transformer ? transformer(a) : a
 
-  return parsedA
+  const parsedB = transformer ? transformer(b) : b
+
+  return { [a]: parsedB }
 }
 
 type DTOFields = Partial<Pick<Listing, 'propertyType' | 'createdAt' | 'updatedAt'>>
@@ -45,28 +50,28 @@ export class GetListingsDto implements DTOFields {
   @IsOptional()
   page?: number
 
-  @Transform(({ value }) => transformIntFilter(value))
-  @Validate(IsValidIntFilter)
+  @Transform(({ value }) => transformFilter(value, Number))
+  @Validate(IsValidFilter)
   @IsOptional()
   minimumNights?: Prisma.IntFilter | number
 
-  @Transform(({ value }) => transformIntFilter(value))
-  @Validate(IsValidIntFilter)
+  @Transform(({ value }) => transformFilter(value, Number))
+  @Validate(IsValidFilter)
   @IsOptional()
   maximumNights?: Prisma.IntFilter | number
 
-  @Transform(({ value }) => transformIntFilter(value))
-  @Validate(IsValidIntFilter)
+  @Transform(({ value }) => transformFilter(value, Number))
+  @Validate(IsValidFilter)
   @IsOptional()
   bedrooms?: Prisma.IntFilter | number
 
-  @Transform(({ value }) => transformIntFilter(value))
-  @Validate(IsValidIntFilter)
+  @Transform(({ value }) => transformFilter(value, Number))
+  @Validate(IsValidFilter)
   @IsOptional()
   beds?: Prisma.IntFilter | number
 
-  @Transform(({ value }) => transformIntFilter(value))
-  @Validate(IsValidIntFilter)
+  @Transform(({ value }) => transformFilter(value, Number))
+  @Validate(IsValidFilter)
   @IsOptional()
   bathrooms?: Prisma.IntFilter | number
 
@@ -74,27 +79,27 @@ export class GetListingsDto implements DTOFields {
   @IsOptional()
   propertyType?: string
 
-  @Transform(({ value }) => transformIntFilter(value))
-  @Validate(IsValidIntFilter)
+  @Transform(({ value }) => transformFilter(value, Number))
+  @Validate(IsValidFilter)
   @IsOptional()
   price?: Prisma.IntFilter | number
 
-  @Transform(({ value }) => transformIntFilter(value))
-  @Validate(IsValidIntFilter)
+  @Transform(({ value }) => transformFilter(value, Number))
+  @Validate(IsValidFilter)
   @IsOptional()
   weeklyPrice?: Prisma.IntFilter | number
 
-  @Transform(({ value }) => transformIntFilter(value))
-  @Validate(IsValidIntFilter)
+  @Transform(({ value }) => transformFilter(value, Number))
+  @Validate(IsValidFilter)
   @IsOptional()
   monthlyPrice?: Prisma.IntFilter | number
 
-  @Transform(({ value }) => transformIntFilter(value))
-  @Validate(IsValidIntFilter)
+  @Transform(({ value }) => transformFilter(value, Number))
+  @Validate(IsValidFilter)
   @IsOptional()
   cleaningFee?: Prisma.IntFilter | number
 
-  @Transform(({ value = [] }) => value?.split(','))
+  @Transform(({ value }) => value?.split(','))
   @IsArray()
   @ArrayUnique()
   @IsOptional()
@@ -118,4 +123,14 @@ export class GetListingsDto implements DTOFields {
   @IsString()
   @IsOptional()
   updatedAt?: Date
+
+  @Transform(({ value }) => transformFilter(value))
+  @Validate(IsValidFilter)
+  @IsOptional()
+  address?: Prisma.StringFilter | string
+
+  @Transform(({ value }) => transformFilter(value))
+  @Validate(IsValidFilter)
+  @IsOptional()
+  country?: Prisma.StringFilter | string
 }

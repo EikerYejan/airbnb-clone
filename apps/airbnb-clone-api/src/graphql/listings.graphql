@@ -56,11 +56,9 @@ input LocationInput {
 }
 
 input AddressInput {
-  street: String!
   suburb: String
   government_area: String
   market: String
-  country: String!
   country_code: String!
   location: LocationInput!
 }
@@ -98,7 +96,9 @@ type Listing {
   lastScraped: Date
   reviewsCount: Int
   images: Images!
-  address: Address!
+  address: String!
+  country: String!
+  addressJson: Address!
 }
 
 input IntFilter {
@@ -131,6 +131,8 @@ input GetListings {
   weeklyPrice: IntFilter
   monthlyPrice: IntFilter
   cleaningFee: IntFilter
+  address: StringFilter
+  country: StringFilter
   page: Int
   size: Int
   order: Order
@@ -167,7 +169,9 @@ input UpdateListing {
   monthlyPrice: Int
   cleaningFee: Int
   images: ImagesInput
-  address: AddressInput
+  address: String
+  country: String
+  addressJson: AddressInput
 }
 
 input CreateListing {
@@ -200,7 +204,9 @@ input CreateListing {
   lastScraped: Date
   reviewsCount: Int
   images: ImagesInput!
-  address: AddressInput!
+  address: String!
+  country: String!
+  addressJson: AddressInput!
 }
 
 type QueryPageInfo {

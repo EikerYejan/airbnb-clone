@@ -1,16 +1,13 @@
 import { UseGuards } from '@nestjs/common'
 import { Resolver, Query, Args, Mutation } from '@nestjs/graphql'
-import { Listing } from '@prisma/client'
 import { AuthGuard } from '../auth/auth.guard'
-import { ListingsUtilsService } from '../listings/listings-utils.service'
+import {
+  ListingsUtilsService,
+  UpdateListingData,
+  CreateListingData,
+} from '../listings/listings-utils.service'
 import { ListingsService } from '../listings/listings.service'
-import { CreateListing, GetListings } from './graphql.typings'
-
-type CreateListingData = Omit<CreateListing, 'images' | 'address'> & {
-  images: Listing['images']
-  address: Listing['address']
-}
-type UpdateListingData = Partial<CreateListingData>
+import { GetListings } from './graphql.typings'
 
 @Resolver('Listing')
 export class GraphqlService {
@@ -39,7 +36,10 @@ export class GraphqlService {
   @Mutation('updateListing')
   @UseGuards(AuthGuard)
   updateListing(@Args('id') id: string, @Args('data') data?: UpdateListingData) {
-    return this.listings.update({ data, where: { id } })
+    return this.listings.update({
+      data: this.util.generateCreateOrUpdatePayload(data),
+      where: { id },
+    })
   }
 
   @Mutation('deleteListing')
@@ -52,6 +52,6 @@ export class GraphqlService {
   @Mutation('createListing')
   @UseGuards(AuthGuard)
   createListing(@Args('data') data: CreateListingData) {
-    return this.listings.create({ data })
+    return this.listings.create({ data: this.util.generateCreateOrUpdatePayload(data) })
   }
 }
