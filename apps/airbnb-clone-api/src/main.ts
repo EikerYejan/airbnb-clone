@@ -2,6 +2,7 @@ import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import * as morgan from 'morgan'
+import * as statusMonitor from 'express-status-monitor'
 import { AppModule } from './app/app.module'
 
 async function bootstrap() {
@@ -25,6 +26,14 @@ async function bootstrap() {
     .build()
 
   app.setGlobalPrefix(globalPrefix)
+
+  app.use(
+    statusMonitor({
+      title: 'Airbnb clone API - Status',
+      path: '/api/status',
+      healthChecks: [{ path: '/api/health', protocol: 'http', host: 'localhost', port }],
+    }),
+  )
   app.use(morgan('combined'))
 
   const document = SwaggerModule.createDocument(app, swaggerConfig, { ignoreGlobalPrefix: false })
