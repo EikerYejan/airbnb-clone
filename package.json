@@ -18,7 +18,9 @@
     "api:generate-client": "npx prisma generate --schema ./apps/airbnb-clone-api/prisma/schema.prisma",
     "api:generate-graphql-typings": "ts-node ./apps/airbnb-clone-api/src/graphql/generateTypings.ts",
     "run:webapp": "nx serve airbnb-clone-webapp",
-    "lint:webapp": "nx lint airbnb-clone-webapp"
+    "lint:webapp": "nx lint airbnb-clone-webapp",
+    "build:webapp": "rm -rf dist/apps/airbnb-clone-webapp && nx build airbnb-clone-webapp --prod",
+    "test:webapp": "nx test airbnb-clone-api"
   },
   "private": true,
   "dependencies": {

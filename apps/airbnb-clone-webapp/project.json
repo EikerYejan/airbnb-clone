@@ -48,6 +48,13 @@
       "options": {
         "lintFilePatterns": ["apps/airbnb-clone-webapp/**/*.{ts,tsx,js,jsx}"]
       }
+    },
+    "type-check": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "cwd": "apps/airbnb-clone-webapp/",
+        "command": "yarn tsc --project apps/airbnb-clone-webapp/tsconfig.json --noEmit"
+      }
     }
   },
   "tags": []
