@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
-    "airbnb-clone-api": "apps/airbnb-clone-api"
+    "airbnb-clone-api": "apps/airbnb-clone-api",
+    "airbnb-clone-webapp": "apps/airbnb-clone-webapp"
   }
 }
