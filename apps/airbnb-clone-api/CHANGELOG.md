@@ -2,6 +2,10 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+# [2.0.0](https://github.com/EikerYejan/airbnb-clone/compare/airbnb-clone-api-1.0.0...airbnb-clone-api-2.0.0) (2021-12-21)
+
+
+
 # 1.0.0 (2021-12-21)
 
 
