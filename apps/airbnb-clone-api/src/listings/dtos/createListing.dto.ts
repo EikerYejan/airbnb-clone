@@ -14,8 +14,14 @@ import {
 } from 'class-validator'
 import { ListingAddressDto } from './listingAddress.dto'
 import { ListingImagesDto } from './listingImages.dto'
+import { ListingAvailabilityDto } from './listingAvailability.dto'
 
-type DTOFields = Omit<Listing, 'id' | 'createdAt' | 'updatedAt' | 'addressJson'>
+type DTOFields = Omit<
+  Listing,
+  'id' | 'createdAt' | 'updatedAt' | 'addressJson' | 'availability'
+> & {
+  availability: ListingAvailabilityDto
+}
 export class CreateListingDto implements DTOFields {
   @IsString()
   @IsNotEmpty()
@@ -144,4 +150,9 @@ export class CreateListingDto implements DTOFields {
   @ValidateNested()
   @Type(() => ListingImagesDto)
   images: Listing['images']
+
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => ListingAvailabilityDto)
+  availability: ListingAvailabilityDto
 }

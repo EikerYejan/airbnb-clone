@@ -54,6 +54,7 @@ export class ListingsUtilsService {
     'images',
     'address',
     'country',
+    'availability',
   ]
 
   generatePagination(size: number, page: number) {
@@ -159,6 +160,7 @@ export class ListingsUtilsService {
   generateCreateOrUpdatePayload(data: CreateListingData | UpdateListingData) {
     return {
       ...data,
+      availability: data.availability || {},
       addressJson: {
         ...(typeof data.addressJson === 'object' ? data.addressJson : {}),
         country: data.country,

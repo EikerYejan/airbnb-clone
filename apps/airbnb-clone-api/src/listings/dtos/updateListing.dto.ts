@@ -10,9 +10,12 @@ import {
   ValidateNested,
 } from 'class-validator'
 import { ListingAddressDto } from './listingAddress.dto'
+import { ListingAvailabilityDto } from './listingAvailability.dto'
 import { ListingImagesDto } from './listingImages.dto'
 
-export class UpdateListingDto implements Partial<Omit<Listing, 'id'>> {
+type DTOFields = Omit<Listing, 'id' | 'availability'> & { availability: ListingAvailabilityDto }
+
+export class UpdateListingDto implements Partial<DTOFields> {
   @IsString()
   @IsOptional()
   listingUrl?: string
@@ -133,4 +136,10 @@ export class UpdateListingDto implements Partial<Omit<Listing, 'id'>> {
   @IsOptional()
   @Type(() => ListingImagesDto)
   images?: Listing['images']
+
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @IsOptional()
+  @Type(() => ListingAvailabilityDto)
+  availability?: ListingAvailabilityDto
 }
