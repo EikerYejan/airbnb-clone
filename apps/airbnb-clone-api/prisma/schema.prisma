@@ -44,4 +44,5 @@ model Listing {
   address              String
   country              String
   addressJson          Json
+  availability         Json
 }

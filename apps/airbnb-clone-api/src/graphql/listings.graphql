@@ -45,6 +45,13 @@ type Address {
   location: Location!
 }
 
+type Availability {
+  availability_30: Int!
+  availability_60: Int!
+  availability_90: Int!
+  availability_365: Int!
+}
+
 input ImagesInput {
   picture_url: String
 }
@@ -61,6 +68,13 @@ input AddressInput {
   market: String
   country_code: String!
   location: LocationInput!
+}
+
+input AvailabilityInput {
+  availability_30: Int!
+  availability_60: Int!
+  availability_90: Int!
+  availability_365: Int!
 }
 
 type Listing {
@@ -99,6 +113,7 @@ type Listing {
   address: String!
   country: String!
   addressJson: Address!
+  availability: Availability!
 }
 
 input IntFilter {
@@ -172,6 +187,7 @@ input UpdateListing {
   address: String
   country: String
   addressJson: AddressInput
+  availability: AvailabilityInput
 }
 
 input CreateListing {
@@ -207,6 +223,7 @@ input CreateListing {
   address: String!
   country: String!
   addressJson: AddressInput!
+  availability: AvailabilityInput!
 }
 
 type QueryPageInfo {
