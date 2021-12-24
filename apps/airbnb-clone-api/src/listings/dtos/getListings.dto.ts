@@ -213,22 +213,22 @@ export class GetListingsDto implements DTOFields {
   @Transform(({ value }) => transformFilter(value, Number))
   @Validate(IsValidFilter)
   @IsOptional()
-  availability_30: Prisma.IntFilter | number
+  availability_30?: Prisma.IntFilter | number
 
   @Transform(({ value }) => transformFilter(value, Number))
   @Validate(IsValidFilter)
   @IsOptional()
-  availability_60: Prisma.IntFilter | number
+  availability_60?: Prisma.IntFilter | number
 
   @Transform(({ value }) => transformFilter(value, Number))
   @Validate(IsValidFilter)
   @IsOptional()
-  availability_90: Prisma.IntFilter | number
+  availability_90?: Prisma.IntFilter | number
 
   @Transform(({ value }) => transformFilter(value, Number))
   @Validate(IsValidFilter)
   @IsOptional()
-  availability_365: Prisma.IntFilter | number
+  availability_365?: Prisma.IntFilter | number
 
   @IsOptional()
   size?: number
