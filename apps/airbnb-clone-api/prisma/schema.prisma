@@ -44,5 +44,8 @@ model Listing {
   address              String
   country              String
   addressJson          Json
-  availability         Json
+  availability_30      Int
+  availability_60      Int
+  availability_90      Int
+  availability_365     Int
 }

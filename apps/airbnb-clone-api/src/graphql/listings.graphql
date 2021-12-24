@@ -18,6 +18,10 @@ enum ListingOrderBy {
   weeklyPrice
   monthlyPrice
   cleaningFee
+  availability_30
+  availability_60
+  availability_90
+  availability_365
 }
 
 enum LocationType {
@@ -45,13 +49,6 @@ type Address {
   location: Location!
 }
 
-type Availability {
-  availability_30: Int!
-  availability_60: Int!
-  availability_90: Int!
-  availability_365: Int!
-}
-
 input ImagesInput {
   picture_url: String
 }
@@ -68,13 +65,6 @@ input AddressInput {
   market: String
   country_code: String!
   location: LocationInput!
-}
-
-input AvailabilityInput {
-  availability_30: Int!
-  availability_60: Int!
-  availability_90: Int!
-  availability_365: Int!
 }
 
 type Listing {
@@ -113,7 +103,10 @@ type Listing {
   address: String!
   country: String!
   addressJson: Address!
-  availability: Availability!
+  availability_30: Int!
+  availability_60: Int!
+  availability_90: Int!
+  availability_365: Int!
 }
 
 input IntFilter {
@@ -148,6 +141,10 @@ input GetListings {
   cleaningFee: IntFilter
   address: StringFilter
   country: StringFilter
+  availability_30: IntFilter
+  availability_60: IntFilter
+  availability_90: IntFilter
+  availability_365: IntFilter
   page: Int
   size: Int
   order: Order
@@ -187,7 +184,10 @@ input UpdateListing {
   address: String
   country: String
   addressJson: AddressInput
-  availability: AvailabilityInput
+  availability_30: Int
+  availability_60: Int
+  availability_90: Int
+  availability_365: Int
 }
 
 input CreateListing {
@@ -223,7 +223,10 @@ input CreateListing {
   address: String!
   country: String!
   addressJson: AddressInput!
-  availability: AvailabilityInput!
+  availability_30: Int!
+  availability_60: Int!
+  availability_90: Int!
+  availability_365: Int!
 }
 
 type QueryPageInfo {
