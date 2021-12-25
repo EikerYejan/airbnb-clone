@@ -54,6 +54,10 @@ export class ListingsUtilsService {
     'images',
     'address',
     'country',
+    'availability_30',
+    'availability_90',
+    'availability_60',
+    'availability_365',
   ]
 
   generatePagination(size: number, page: number) {
@@ -74,6 +78,10 @@ export class ListingsUtilsService {
     cleaningFee,
     address,
     country,
+    availability_30,
+    availability_60,
+    availability_90,
+    availability_365,
   }: QueryFields): Prisma.ListingWhereInput {
     return removeUndefinedEntries({
       bedrooms,
@@ -86,6 +94,10 @@ export class ListingsUtilsService {
       weeklyPrice,
       monthlyPrice,
       cleaningFee,
+      availability_30,
+      availability_60,
+      availability_90,
+      availability_365,
       name: typeof name === 'string' ? { contains: name } : name,
       address: typeof address === 'string' ? { contains: address } : address,
       country: typeof country === 'string' ? { contains: country } : country,

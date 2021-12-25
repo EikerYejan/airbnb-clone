@@ -1,7 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Listing } from '@prisma/client'
+import { ListingAddressDto } from '../listings/dtos/listingAddress.dto'
+import { ListingImagesDto } from '../listings/dtos/listingImages.dto'
 
-export class ListingDocsSchema implements Listing {
+type ClassFields = Omit<Listing, 'images' | 'addressJson'>
+export class ListingDocsSchema implements ClassFields {
   @ApiProperty()
   id: string
 
@@ -96,7 +99,7 @@ export class ListingDocsSchema implements Listing {
   reviewsCount: number
 
   @ApiProperty()
-  images: any
+  images: ListingImagesDto
 
   @ApiProperty()
   address: string
@@ -105,5 +108,17 @@ export class ListingDocsSchema implements Listing {
   country: string
 
   @ApiProperty()
-  addressJson: any
+  addressJson: ListingAddressDto
+
+  @ApiProperty()
+  availability_30: number
+
+  @ApiProperty()
+  availability_60: number
+
+  @ApiProperty()
+  availability_90: number
+
+  @ApiProperty()
+  availability_365: number
 }

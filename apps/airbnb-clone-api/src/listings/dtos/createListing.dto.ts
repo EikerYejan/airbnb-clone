@@ -9,6 +9,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Max,
   Min,
   ValidateNested,
 } from 'class-validator'
@@ -144,4 +145,21 @@ export class CreateListingDto implements DTOFields {
   @ValidateNested()
   @Type(() => ListingImagesDto)
   images: Listing['images']
+
+  @IsNumber()
+  @Min(1)
+  @Max(30)
+  availability_30: number
+
+  @Min(1)
+  @Max(60)
+  availability_60: number
+
+  @Min(1)
+  @Max(90)
+  availability_90: number
+
+  @Min(1)
+  @Max(365)
+  availability_365: number
 }

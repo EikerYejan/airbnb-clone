@@ -7,6 +7,8 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  Max,
+  Min,
   ValidateNested,
 } from 'class-validator'
 import { ListingAddressDto } from './listingAddress.dto'
@@ -133,4 +135,21 @@ export class UpdateListingDto implements Partial<Omit<Listing, 'id'>> {
   @IsOptional()
   @Type(() => ListingImagesDto)
   images?: Listing['images']
+
+  @IsNumber()
+  @Min(1)
+  @Max(30)
+  availability_30: number
+
+  @Min(1)
+  @Max(60)
+  availability_60: number
+
+  @Min(1)
+  @Max(90)
+  availability_90: number
+
+  @Min(1)
+  @Max(365)
+  availability_365: number
 }
