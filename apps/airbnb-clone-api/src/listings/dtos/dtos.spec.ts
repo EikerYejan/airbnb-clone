@@ -7,7 +7,7 @@ import { IsValidSelectField } from './validateSelectFields'
 describe('Validation DTOs', () => {
   const selectFieldsValidator = new IsValidSelectField()
   const orderByFieldsValidator = new IsValidOrderByField()
-  const intFilterValidator = new IsValidFilter()
+  const filterValidator = new IsValidFilter()
 
   it('Should allow correct select values (id,name)', () => {
     expect(selectFieldsValidator.validate(['id', 'name'])).toBeTruthy()
@@ -63,17 +63,17 @@ describe('Validation DTOs', () => {
     })
   })
 
-  describe('Validate int filter', () => {
+  describe('Validate filter', () => {
     it('Should return true when recieving a number', () => {
-      expect(intFilterValidator.validate(5)).toBeTruthy()
+      expect(filterValidator.validate(5)).toBeTruthy()
     })
 
     it('Should return true when recieving a logic filter', () => {
-      expect(intFilterValidator.validate({ lt: 5 })).toBeTruthy()
+      expect(filterValidator.validate({ lt: 5 })).toBeTruthy()
     })
 
     it('Should return false', () => {
-      const message = intFilterValidator.defaultMessage({
+      const message = filterValidator.defaultMessage({
         value: { lt: 5 },
         property: 'beds',
         constraints: [],
@@ -81,12 +81,16 @@ describe('Validation DTOs', () => {
         targetName: 'testDto',
       })
 
-      expect(intFilterValidator.validate({})).toBeFalsy()
+      // eslint-disable-next-line
+      // @ts-ignore
+      expect(filterValidator.validate()).toBeFalsy()
+      expect(filterValidator.validate({})).toBeFalsy()
+      expect(filterValidator.validate({ lt: undefined })).toBeFalsy()
       expect(message).toEqual('parameter lt is not a valid beds filter')
     })
 
     it('Should return false when recieving an invalid int filter', () => {
-      expect(intFilterValidator.validate({ not: 4 })).toBeFalsy()
+      expect(filterValidator.validate({ not: 4 })).toBeFalsy()
     })
   })
 
@@ -117,6 +121,10 @@ describe('Validation DTOs', () => {
           address: { contains: '123' },
           country: 'USA',
           select: ['id', 'name'],
+          availability_30: { gt: 15 },
+          availability_60: { gt: 35 },
+          availability_90: { gt: 75 },
+          availability_365: { gt: 250 },
         }
         const data = {
           beds: 'lt_45',
@@ -131,6 +139,10 @@ describe('Validation DTOs', () => {
           address: 'contains_123',
           country: 'USA',
           select: 'id,name',
+          availability_30: 'gt_15',
+          availability_60: 'gt_35',
+          availability_90: 'gt_75',
+          availability_365: 'gt_250',
         }
 
         const result = await target.transform(data, metadata)
