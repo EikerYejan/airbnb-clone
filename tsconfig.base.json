@@ -14,9 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {},
     "useUnknownInCatchVariables": false,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@airbnb-clone/airbnb-clone-types": ["libs/airbnb-clone-types/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

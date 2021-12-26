@@ -1,0 +1,15 @@
+{
+  "root": "libs/airbnb-clone-types",
+  "sourceRoot": "libs/airbnb-clone-types/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/airbnb-clone-types/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
