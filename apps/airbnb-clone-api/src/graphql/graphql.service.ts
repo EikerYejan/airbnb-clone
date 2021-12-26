@@ -5,6 +5,7 @@ import {
   ListingsUtilsService,
   UpdateListingData,
   CreateListingData,
+  QueryFields,
 } from '../listings/listings-utils.service'
 import { ListingsService } from '../listings/listings.service'
 import { GetListings } from './graphql.typings'
@@ -20,7 +21,7 @@ export class GraphqlService {
   async listingsQuery(@Args('where') args: GetListings) {
     const page = args?.page ?? 1
     const { data: edges, pageInfo } = await this.listings.list(
-      this.util.generateFilters({ ...args, size: args?.size ?? 25, page }),
+      this.util.generateFilters({ ...args, size: args?.size ?? 25, page } as QueryFields),
       page,
     )
 
@@ -35,7 +36,7 @@ export class GraphqlService {
   // TODO: Validate address.location.coordinates length and type
   @Mutation('updateListing')
   @UseGuards(AuthGuard)
-  updateListing(@Args('id') id: string, @Args('data') data?: UpdateListingData) {
+  updateListing(@Args('id') id: string, @Args('data') data: UpdateListingData) {
     return this.listings.update({
       data: this.util.generateCreateOrUpdatePayload(data),
       where: { id },

@@ -43,7 +43,7 @@ export class AuthGuard implements CanActivate {
 
       if (this.whiteListedRoutes.includes(path)) return true
 
-      return this.apiKey && incomingKey === this.apiKey
+      return typeof this.apiKey === 'string' && incomingKey === this.apiKey
     } catch (error) {
       this.logger.error(error?.message?.toUpperCase())
 

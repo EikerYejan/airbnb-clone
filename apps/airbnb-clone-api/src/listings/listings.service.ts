@@ -13,7 +13,10 @@ export class ListingsService {
       this.db.listing.count({ where: args.where }),
     ])
 
-    return { pageInfo: this.utils.generateQueryPageInfo(data.length, count, args.take, page), data }
+    return {
+      pageInfo: this.utils.generateQueryPageInfo(data.length, count, args?.take || 25, page),
+      data,
+    }
   }
 
   get(args: Prisma.ListingFindUniqueArgs) {

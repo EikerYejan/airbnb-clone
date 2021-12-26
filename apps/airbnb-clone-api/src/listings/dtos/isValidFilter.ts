@@ -17,7 +17,7 @@ export class IsValidFilter implements ValidatorConstraintInterface {
     if (Object.keys(value).length <= 0) return false
 
     return Object.keys(value).every((key) => {
-      const val = value[key]
+      const val = value?.[key as keyof typeof value]
 
       if (!val) return false
 
@@ -26,8 +26,8 @@ export class IsValidFilter implements ValidatorConstraintInterface {
   }
 
   defaultMessage(validationArguments?: ValidationArguments): string {
-    return `parameter ${Object.keys(validationArguments.value ?? {}).join(
-      ', and',
-    )} is not a valid ${validationArguments.property} filter`
+    return `parameter ${Object.keys(validationArguments?.value)?.join(', and')} is not a valid ${
+      validationArguments?.property
+    } filter`
   }
 }

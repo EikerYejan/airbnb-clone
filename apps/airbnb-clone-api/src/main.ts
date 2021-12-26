@@ -21,7 +21,7 @@ async function bootstrap() {
     )
     .setTitle('Airbnb clone API')
     .setDescription('A NestJS API using Prisma and MongoDB')
-    .setVersion(process.env.npm_package_version)
+    .setVersion(process.env.npm_package_version ?? '0.1.0')
     .addTag('listings')
     .build()
 

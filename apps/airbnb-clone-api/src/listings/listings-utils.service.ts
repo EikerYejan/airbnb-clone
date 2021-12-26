@@ -6,7 +6,7 @@ import { GetListingsDto } from './dtos/getListings.dto'
 
 type ListingKey = keyof Listing
 
-type QueryFields = Partial<Omit<GetListingsDto, 'select'>> & {
+export type QueryFields = Partial<Omit<GetListingsDto, 'select'>> & {
   select?: Array<ListingKey | ListingOrderBy>
 }
 
@@ -60,7 +60,7 @@ export class ListingsUtilsService {
     'availability_365',
   ]
 
-  generatePagination(size: number, page: number) {
+  generatePagination(size = 0, page = 1) {
     return size * (page && page > 0 ? page - 1 : page)
   }
 
@@ -105,7 +105,7 @@ export class ListingsUtilsService {
   }
 
   validateOrderBy(value?: ListingKey | ListingOrderBy) {
-    return this.allowedSelectFields.includes(value)
+    return !!value && this.allowedSelectFields.includes(value)
   }
 
   validateSelectFields(fields: ListingKey[] = []) {
@@ -143,10 +143,10 @@ export class ListingsUtilsService {
     return { [sortField]: order }
   }
 
-  generateFilters(query: QueryFields): Partial<Prisma.ListingFindManyArgs> {
+  generateFilters(query: QueryFields) {
     const { order, orderBy } = query
 
-    return removeUndefinedEntries({
+    return removeUndefinedEntries<Partial<Prisma.ListingFindManyArgs>>({
       take: query.size,
       skip: this.generatePagination(query.size, query.page),
       where: this.generateQueryFilters(query),

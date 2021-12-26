@@ -21,13 +21,14 @@ export enum SortOrder {
   DESC = 'desc',
 }
 
-type Transformer = (v: string) => unknown
+type TransformerResult = Prisma.IntFilter | Prisma.StringFilter | string | number | undefined
+type Transformer = (v: string) => TransformerResult
 
 // TODO: move to a separate file
 export function transformFilter<T extends Transformer>(
   filter?: string,
   transformer?: T,
-): Prisma.IntFilter | Prisma.StringFilter | string | number {
+): TransformerResult {
   if (!filter || filter.length < 0) return undefined
   const [a, b] = filter.split('_')
 
